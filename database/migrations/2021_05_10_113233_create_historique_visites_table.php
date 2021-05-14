@@ -23,10 +23,15 @@ class CreateHistoriqueVisitesTable extends Migration
             $table->enum("etat",["Non Debuter","En cours","Terminer"]);
             $table->json("etat_des_lieux")->nullable();
             $table->json("travaux")->nullable();
+
             $table->json("factures")->nullable();
             $table->string("total_travaux")->nullable();
             $table->string("main_doeuvre")->nullable();
-            $table->timestamps();
+
+            $table->string("total_a_payer")->nullable();
+            $table->json("versements")->nullable();
+            $table->string("total_versements")->default('0');
+            $table->string("reste_a_payer")->nullable();
         });
     }
 

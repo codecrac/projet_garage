@@ -429,7 +429,7 @@
                                 <br/>
                                 <label>Date</label><br/>
                                 @if($infos_visite!=null)
-                                    <input class="form-control" type="date" name="date_facture" value="{{$infos_visite->date}}" required/>
+                                    <input class="form-control" type="date" name="date_visite_technique" value="{{$infos_visite->date}}" required/>
                                 @else
                                     <input type="date" placeholder="123 456 7890" required class="form-control p-0 border-0" name="date_visite_technique">
                                 @endif

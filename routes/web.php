@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ComptabiliteController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\VehiculeController;
 use App\Http\Controllers\VisiteController;
@@ -36,9 +37,13 @@ Route::get('liste_vehicules_garage',[FrontController::class,'liste_vehicules_gar
 Route::get('editer_vehicule/{id_vehicule}/{id_visite?}',[FrontController::class,'editer_vehicule'])->name('editer_vehicule');
 //<===================================================================================>
 Route::get('devis-rapide',[FrontController::class,'devis_rapide'])->name('devis_rapide');
+Route::get('liste_facture',[FrontController::class,'liste_facture'])->name('liste_facture');
+Route::get('versements_facture/{id_visite}',[FrontController::class,'versements_facture'])->name('versements_facture');
 //<===================================================================================>
 Route::get('nouveau-flux',[FrontController::class,'nouveau_flux'])->name('nouveau_flux');
 Route::get('bilan-par-mois',[FrontController::class,'bilan_par_mois'])->name('bilan_par_mois');
+Route::get('details_flux_argent_du_mois/{mois_a_afficher}',[FrontController::class,'details_flux_argent_du_mois'])->name('details_flux_argent_du_mois');
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [FrontController::class,'dashboard'])->name('dashboard');
 
@@ -60,3 +65,10 @@ Route::post('modifier_facture/{id_vehicule}/{id_visite}',[VisiteController::clas
 //###############################VEHICULES#############################
 Route::post('enregistrer-vehicules',[VehiculeController::class,'enregistrer_vehicule'])->name('enregistrer_vehicule');
 Route::delete('supprimer-vehicule/{id_vehicule}/{id_client}',[VehiculeController::class,'supprimer_vehicule'])->name('supprimer_vehicule');
+
+
+//###############################COMPTABILITE#############################
+Route::post('enregistrer_flux_argent',[ComptabiliteController::class,'enregistrer_flux_argent'])->name('enregistrer_flux_argent');
+Route::post('enregistrer_versement_facture/{id_visite}',[ComptabiliteController::class,'enregistrer_versement_facture'])->name('enregistrer_versement_facture');
+Route::delete('supprimer_versement_facture/{id_visite}/{index_versement}',[ComptabiliteController::class,'supprimer_versement_facture'])->name('supprimer_versement_facture');
+

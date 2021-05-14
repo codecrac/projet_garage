@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BilanComptable;
 use App\Models\Client;
+use App\Models\FluxArgent;
 use App\Models\Vehicule;
 use App\Models\Visite;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
@@ -70,14 +73,44 @@ class FrontController extends Controller
         $titre = "Devis rapide";
         return view('devis_facture.devis_rapide',compact('titre'));
     }
+    public function liste_facture(){
+        $titre = "liste des factures";
+        $liste_visite = Visite::all();
+        return view('devis_facture.liste_facture',compact('titre','liste_visite'));
+    }
+    public function versements_facture($id_visite){
+        $titre = "liste des versement";
+        $versements_facture = Visite::findorfail($id_visite);
+
+        $liste_versement = json_decode($versements_facture->versements);
+        if($versements_facture->versements ==null){
+            $liste_versement =[];
+        }
+        return view('devis_facture.versements_facture',compact('titre','versements_facture','liste_versement'));
+    }
 //=================COMPTABILITE
     public function nouveau_flux()
     {
         $titre = "FLUX ENTRANT ET SORTANT";
-        return view('comptabilite.nouveau_flux', compact('titre'));
+        $les_vehiclues = Vehicule::all();
+        $today = date("Y-m-d");
+        $total_entree_aujourdhui = FluxArgent::where("date",'=',$today)->where("flux",'=','entree')->sum('montant');
+        $total_sortie_aujourdhui = FluxArgent::where("date",'=',$today)->where("flux",'=','sortie')->sum('montant');
+        $flux_aujourdhui = FluxArgent::where("date",'=',$today)->orderby("id",'DESC')->get();
+        return view('comptabilite.nouveau_flux', compact('titre','les_vehiclues','total_sortie_aujourdhui','total_entree_aujourdhui','flux_aujourdhui'));
     }
     public function bilan_par_mois(){
-        $titre = "FLUX ENTRANT ET SORTANT";
-        return view('comptabilite.bilan_comptable',compact('titre'));
+        $titre = "HISTORIQUE DES FLUX REGROUPE PAR MOIS";
+        $bilan = BilanComptable::all();
+//        dd($bilan[0]['mois_a_afficher']);
+        return view('comptabilite.bilan_comptable',compact('titre','bilan'));
+    }
+
+    public function details_flux_argent_du_mois($mois_a_afficher){
+        $titre = "HISTORIQUE DES FLUX DU MOIS : $mois_a_afficher";
+        $total_entree = FluxArgent::where("date_hebdo",'=',$mois_a_afficher)->where("flux",'=','entree')->sum('montant');
+        $total_sortie = FluxArgent::where("date_hebdo",'=',$mois_a_afficher)->where("flux",'=','sortie')->sum('montant');
+        $bilan_du_mois = FluxArgent::where('date_hebdo','=',$mois_a_afficher)->get();
+        return view('comptabilite.bilan_comptable_du_mois',compact('titre','bilan_du_mois','mois_a_afficher','total_entree','total_sortie'));
     }
 }

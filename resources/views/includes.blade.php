@@ -81,6 +81,13 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('liste_facture')}}"
+                           aria-expanded="false">
+                            <i class="fa fa-table" aria-hidden="true"></i>
+                            <span class="hide-menu">Reglement de Factures</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
                         <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('nouveau_vehicule')}}"
                            aria-expanded="false">
                             <i class="fa fa-font" aria-hidden="true"></i>

@@ -18,4 +18,7 @@ class Vehicule extends Model
     public function visites(){
         return $this->hasMany(Visite::class,'id_vehicule');
     }
+    public function flux(){
+        return $this->hasMany(FluxArgent::class,'id_vehicule');
+    }
 }

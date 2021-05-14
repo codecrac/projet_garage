@@ -133,14 +133,15 @@ class VisiteController extends Controller
         $la_visite = Visite::find($id_visite);
         if($la_visite==null){
             $la_visite = new Visite();
+            $la_visite->date = $df['date_visite_technique'];
             $la_visite->id_vehicule = $id_vehicule;
+            $la_visite->total_versements =0;
         }
 
         $liste_objet = [];
         $main_doeuvre = $df['main_doeuvre'];
         $total_travaux = $df['total_travaux'];
 
-        $nombre_objet = sizeof($df['objet']);
         $nombre_objet = sizeof($df['objet']);
         for ($i=0;$i<$nombre_objet;$i++){
             $objet = $df['objet'][$i];
@@ -164,6 +165,8 @@ class VisiteController extends Controller
         $la_visite->factures = $facture;
         $la_visite->main_doeuvre = $main_doeuvre;
         $la_visite->total_travaux = $total_travaux;
+        $la_visite->total_a_payer = $total_travaux+$main_doeuvre;
+        $la_visite->reste_a_payer = $total_travaux+$main_doeuvre - $la_visite->total_versements;
 
         if($la_visite->save()){
             $id_visite = $la_visite->id;
