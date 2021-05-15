@@ -18,13 +18,13 @@
                                     </thead>
                                     <tbody>
                                     <?php $i=0; ?>
-                                    @foreach($les_voitures as $item_vehicule)
+                                    @foreach($les_visites_pas_sur_rendu as $item_visite)
                                     <tr>
                                         <td><?=$i++?></td>
-                                        <td>{{$item_vehicule->immatriculation}}</td>
-                                        <td>{{$item_vehicule->id_marque}} | {{$item_vehicule->id_model}} </td>
-                                        <td><button type="button" class="btn btn-success"> {{sizeof($item_vehicule->visites)}}</button></td>
-                                        <td>{{$item_vehicule->client->nom}} | {{$item_vehicule->client->telephone}}</td>
+                                        <td>{{$item_visite->vehicule->immatriculation}}</td>
+                                        <td>{{$item_visite->vehicule->id_marque}} | {{$item_visite->vehicule->id_model}} </td>
+                                        <td><button type="button" class="btn btn-success"> {{sizeof($item_visite->vehicule->visites)}}</button></td>
+                                        <td>{{$item_visite->vehicule->client->nom}} | {{$item_visite->vehicule->client->telephone}}</td>
                                         <td>
 
                                              <input type="checkbox" onchange="toggle_garde_fou(<?=$i?>)">
@@ -57,15 +57,17 @@
                                                                      <tbody>
                                                                      @php
                                                                          $j=0;
-                                                                           $historique_visites = $item_vehicule->visites;
+                                                                           $historique_visites = $item_visite->vehicule->visites;
                                                                      @endphp
                                                                      @foreach($historique_visites as $item_visite)
-                                                                         <td><?=$j++?></td>
-                                                                         <td>{{$item_visite->date}}</td>
-                                                                         <td>{{$item_visite->etat}}</td>
-                                                                         <td>
-                                                                             <a href="{{route('editer_vehicule',[$item_vehicule->id,$item_visite->id])}}" class="mt-2 mt-1 mb-1 btn btn-primary"> + </a>
-                                                                         </td>
+                                                                         <tr>
+                                                                             <td><?=$j++?></td>
+                                                                             <td>{{$item_visite->date}}</td>
+                                                                             <td>{{$item_visite->etat}}</td>
+                                                                             <td>
+                                                                                 <a href="{{route('editer_vehicule',[$item_visite->vehicule->id,$item_visite->id])}}" class="mt-2 mt-1 mb-1 btn btn-primary"> + </a>
+                                                                             </td>
+                                                                         </tr>
                                                                      @endforeach
                                                                      </tbody>
                                                                  </table>

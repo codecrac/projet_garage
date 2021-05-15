@@ -16,14 +16,18 @@ class CreateHistoriqueVisitesTable extends Migration
         Schema::create('historique_visites', function (Blueprint $table) {
             $table->id();
             $table->integer("id_vehicule");
+            $table->integer("id_client");
 
             $table->string("date");
             $table->string("date_prochaine_visite")->nullable();
             $table->string("motif");
-            $table->enum("etat",["Non Debuter","En cours","Terminer"]);
-            $table->json("etat_des_lieux")->nullable();
-            $table->json("travaux")->nullable();
+            $table->enum("etat",["Non Debuter","En cours","Terminer","rendu"]);
 
+            $table->json("etat_des_lieux")->nullable();
+            $table->string("kilometrage")->nullable();
+            $table->string("niveau_carburant")->nullable();
+
+            $table->json("travaux")->nullable();
             $table->json("factures")->nullable();
             $table->string("total_travaux")->nullable();
             $table->string("main_doeuvre")->nullable();

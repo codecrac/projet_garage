@@ -18,37 +18,9 @@
     <div class="hidden" style="display: none">
         <table>
             <tbody>
-            <tr id="la_ligne_etat_des_lieux">
-                <td>
-                    <input class="form-control" autocomplete="off" list="liste_objet" type="text" name="objet[]" required/>
-                </td>
-                <td>
-                    <input class="form-control quantite" autocomplete="off"  type="number" name="quantite[]" required />
-                </td>
-                <td>
-                    <select class="form-control etat" type="number" name="etat[]" required>
-                        <option value="Present">Present</option>
-                        <option value="Absent">Absent</option>
-                    </select>
-                </td>
-                <td>
-                    <input  class="form-control observation" autocomplete="off"  type="text" name="observation[]" required/>
-                </td>
-            </tr>
-            <tr id="la_ligne_fiche">
-                <td>
-                    <input class="form-control" autocomplete="off" list="liste_objet_fiche" type="text" name="objet[]" required/>
-                </td>
-                <td>
-                    <input class="form-control quantite" autocomplete="off"  type="number" name="quantite[]" required />
-                </td>
-                <td>
-                    <input class="form-control" autocomplete="off" list="liste_etat_fiche" type="text" name="etat[]" required/>
-                </td>
-            </tr>
             <tr id="la_ligne_facture">
                 <td>
-                    <input class="form-control" type="text" name="produit_servces[]"   required/>
+                    <input class="form-control" type="text" name="objet[]"   required/>
                 </td>
                 <td>
                     <input class="form-control prix_unitaire " type="text" name="prix_unitaire[]"  required/>
@@ -92,23 +64,26 @@
     <div class="container-fluid">
         <div class="row">
            {{--=====================--PARTIE QUI SWITCH--=====================--}}
-            <div class="offset-md-2 col-lg-8 col-xlg-9 col-md-12 section" id="section_facture">
+            <div class="offset-md-1 col-lg-9 col-xlg-9 col-md-12 section" id="section_facture">
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="text-uppercase pb-4 pt-4">DEVIS RAPIDE</h3>
-                        <form class="form-horizontal form-material">
+                        <h3 class="text-uppercase pb-4 pt-4">
+                            DEVIS RAPIDE
+<!--                            --><?//=$_SERVER["DOCUMENT_ROOT"].'\images\icone_garage.jpg'?>
+                        </h3>
+                        <form class="form-horizontal form-material" target="_blank" method="post" action="{{route('devis_rapide_pdf')}}">
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>Nom Complet Client(e)</label><br/>
-                                    <input class="form-control" type="text" name="immatriculation" placeholder="YU 908 848" />
+                                    <input class="form-control" type="text" name="nom_client" placeholder="YU 908 848" />
                                 </div>
                                 <div class="col-md-6">
                                     <label>Marque Voiture</label><br/>
-                                    <input class="form-control" type="text" name="date_facture" />
+                                    <input class="form-control" type="text" name="marque" />
                                 </div>
                                 <div class="col-md-6">
                                     <label>Model Voiture</label><br/>
-                                    <input class="form-control" type="text" name="date_facture"/>
+                                    <input class="form-control" type="text" name="model"/>
                                 </div>
                                 <div class="col-md-6">
                                     <label>Immatriculation</label><br/>
@@ -131,7 +106,7 @@
                                     <tbody id="le_corps_de_la_table_facture">
                                     <tr>
                                         <td>
-                                            <input class="form-control" type="text" name="produit_servces[]" required/>
+                                            <input class="form-control" type="text" name="objet[]" required/>
                                         </td>
                                         <td>
                                             <input class="form-control prix_unitaire" type="number" name="prix_unitaire[]" id="prix_unitaire_0" onkeyup="calcul_prix_total_ditem('0')"  required/>
@@ -160,12 +135,13 @@
                                             <input class="form-control" type="number" name="main_doeuvre" id="main_doeuvre" onkeyup="ajout_de_main_doeuvre()" />
                                             <br/>
                                             <label>Grand total</label>
-                                            <input readonly class="form-control" type="number" required name="reste_a_payer" id="reste_a_payer" />
+                                            <input readonly class="form-control" type="number" required name="total_a_payer" id="reste_a_payer" />
                                             <br/>
                                         </div>
 
                                         <div class="row py-2">
-                                            <input class="form-control btn btn-success" type="submit" name="relecharger_en_pdf" value="Telecharger en pdf">
+                                            @csrf
+                                            <input class="form-control btn btn-success" type="submit" name="telecharger_en_pdf" value="Telecharger en pdf">
                                         </div>
                                     </div>
                                 </div>

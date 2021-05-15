@@ -62,6 +62,8 @@ class VisiteController extends Controller
         $date_visite = $df['date_visite_technique'];
         $date_prochaine_visite = $df['date_prochaine_visite_technique'];
         $motif_garage = $df['motif_garage'];
+        $niveau_carburant = $df['niveau_carburant'];
+        $kilometrage = $df['kilometrage'];
 
         $liste_objet = [];
         $nombre_objet = sizeof($df['objet']);
@@ -87,6 +89,8 @@ class VisiteController extends Controller
         $la_visite->date_prochaine_visite = $date_prochaine_visite;
         $la_visite->motif = $motif_garage;
         $la_visite->etat_des_lieux = $etat_des_lieux;
+        $la_visite->niveau_carburant = $niveau_carburant;
+        $la_visite->kilometrage = $kilometrage;
         if($la_visite->save()){
             $id_visite = $la_visite->id;
             return redirect()->route("editer_vehicule",[$id_vehicule,$id_visite]);
@@ -130,6 +134,7 @@ class VisiteController extends Controller
 
     public function modifier_facture(Request $request,int $id_vehicule,int $id_visite){
         $df = $request->all();
+
         $la_visite = Visite::find($id_visite);
         if($la_visite==null){
             $la_visite = new Visite();

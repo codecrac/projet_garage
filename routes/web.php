@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ComptabiliteController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\VehiculeController;
 use App\Http\Controllers\VisiteController;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,8 @@ Route::get('details_flux_argent_du_mois/{mois_a_afficher}',[FrontController::cla
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [FrontController::class,'dashboard'])->name('dashboard');
+Route::get('visites_en_approche',[FrontController::class,'visites_en_approche'])->name('visites_en_approche');
+Route::get('classement_frequence_clients',[FrontController::class,'classement_frequence_clients'])->name('classement_frequence_clients');
 
 /*|--------------------------------------------------------------------------
 | BACKEND
@@ -72,3 +75,9 @@ Route::post('enregistrer_flux_argent',[ComptabiliteController::class,'enregistre
 Route::post('enregistrer_versement_facture/{id_visite}',[ComptabiliteController::class,'enregistrer_versement_facture'])->name('enregistrer_versement_facture');
 Route::delete('supprimer_versement_facture/{id_visite}/{index_versement}',[ComptabiliteController::class,'supprimer_versement_facture'])->name('supprimer_versement_facture');
 
+
+//###############################PDF#############################
+Route::post('devis_rapide_pdf',[PdfController::class,'devis_rapide_pdf'])->name('devis_rapide_pdf');
+Route::get('etat_des_lieux_visite_pdf/{id_visite}',[PdfController::class,'etat_des_lieux_visite_pdf'])->name('etat_des_lieux_visite_pdf');
+Route::get('travaux_visite_pdf/{id_visite}',[PdfController::class,'travaux_visite_pdf'])->name('travaux_visite_pdf');
+Route::get('facture_visite_pdf/{id_visite}',[PdfController::class,'facture_visite_pdf'])->name('facture_visite_pdf');

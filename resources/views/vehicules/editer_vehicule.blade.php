@@ -124,6 +124,7 @@
                         <option>Non Debuter</option>
                         <option>En cours</option>
                         <option>Terminer</option>
+                        <option>rendu</option>
                     </select>
                     <br/>
                     @csrf
@@ -192,9 +193,9 @@
                                         <button class="btn btn-success">Enregistrer information</button>
                                     </div>
                                 </div>
-                                <div class="row py-2">
+                                {{--<div class="row py-2">
                                     <input class="form-control btn btn-info" type="submit" name="telecharger_en_pdf" value="Telecharger en pdf">
-                                </div>
+                                </div>--}}
                             </form>
                     </div>
                 </div>
@@ -207,7 +208,19 @@
                     <div class="card-body">
                         <a href="{{route('liste_vehicules_client',[1])}}" class="btn btn-default text-black">RETOUR</a>
                         <br>
-                            <h3 class="text-uppercase pb-4 pt-4">ETAT DES LIEUX</h3>
+
+                        <div class="row">
+                            <div class="col-md-5">
+                                <h3 class="text-uppercase pb-4 pt-4"> ETAT DES LIEUX</h3>
+                            </div>
+                            <div class="col-md-7">
+                                <h3 class="text-uppercase pb-4 pt-4">
+                                    @if($infos_visite->etat_des_lieux!=null)
+                                        <a class="form-control btn btn-info text-white" target="_blank" href="{{route('etat_des_lieux_visite_pdf',[$infos_visite->id])}}" > Telecharger Etat des lieux</a>
+                                    @endif
+                                </h3>
+                            </div>
+                        </div>
 
                             <form class="form-horizontal form-material" method="post" action="{{route('modifier_etat_des_lieux',[$infos_vehicule->id,$infos_visite->id])}}">
 
@@ -229,7 +242,7 @@
                                 </div>
 
                                 <div class="py-4">
-                                        <table class="table table-bordered">
+                                    <table class="table table-bordered">
                                         <thead>
                                         <th>Désignation</th>
                                         <th>Quantite</th>
@@ -253,7 +266,7 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <input  class="form-control observation" autocomplete="off"  type="text" name="observation[]" required/>
+                                                <input  class="form-control observation" autocomplete="off"  type="text" name="observation[]" />
                                             </td>
                                         </tr>
                                             @else
@@ -288,6 +301,24 @@
                                         </tbody>
                                     </table>
 
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label>Kilometrage</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" placeholder="123" class="form-control p-3" name="kilometrage" value="{{$infos_visite->kilometrage}}">
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label>Niveau de Carburant</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" placeholder="123" class="form-control p-3" name="niveau_carburant" value="{{$infos_visite->niveau_carburant}}">
+                                        </div>
+                                    </div>
+
                                     <div class="col-12 text-center">
                                         <a class="btn btn-info" onclick="addNewRow('etat_des_lieux')">+</a>
                                         <a class="btn btn-danger" onclick="removeLastRow('etat_des_lieux')">-</a>
@@ -315,10 +346,6 @@
                                         <button class="btn btn-success">Enregistrer ETAT DES LIEUX</button>
                                     </div>
                                 </div>
-
-                                <div class="row py-2">
-                                    <input class="form-control btn btn-info text-white" type="submit" name="telecharger_en_pdf_1" value="Telecharger etat des lieux en pdf">
-                                </div>
                             </form>
                     </div>
                 </div>
@@ -331,7 +358,21 @@
                     <div class="card-body">
                         <a href="{{route('liste_vehicules_client',[1])}}" class="btn btn-default text-black">RETOUR</a>
                         <br>
-                        <h3 class="text-uppercase pb-4 pt-4"> TRAVAUX EFFECTUES</h3>
+
+                        <div class="row">
+                            <div class="col-md-5">
+                                <h3 class="text-uppercase pb-4 pt-4"> TRAVAUX EFFECTUES</h3>
+                            </div>
+                            <div class="col-md-7">
+                                <h3 class="text-uppercase pb-4 pt-4">
+                                    @if($infos_visite->travaux!=null)
+                                        <a class="form-control btn btn-info text-white" target="_blank" href="{{route('travaux_visite_pdf',[$infos_visite->id])}}" > Telecharger la fiche technique</a>
+                                    @endif
+                                </h3>
+                            </div>
+                        </div>
+
+
                         <div class="row">
                             <label>Immatriculation</label><br/>
                             <input class="form-control" type="text" name="immatriculation" placeholder="YU 908 848" required/>
@@ -407,21 +448,32 @@
                                     <button class="btn btn-success">Enregistrer fiche technique</button>
                                 </div>
                             </div>
-
-                            <div class="row py-2">
-                                <input class="form-control btn btn-info text-white" type="submit" name="telecharger_en_pdf_2" value="Telecharger fiche technique en pdf">
-                            </div>
                         </form>
                     </div>
                 </div>
             </div>
+{{--            ======================FACTURES=====================--}}
+{{--            ======================FACTURES=====================--}}
 {{--            ======================FACTURES=====================--}}
             <div class="col-lg-8 col-xlg-9 col-md-12 section" id="section_facture">
                 <div class="card">
                     <div class="card-body">
                         <a href="{{route('liste_vehicules_client',[1])}}" class="btn btn-default text-black">RETOUR</a>
                         <br>
-                        <h3 class="text-uppercase pb-4 pt-4">FACTURES</h3>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <h3 class="text-uppercase pb-4 pt-4">
+                                    FACTURES
+                                </h3>
+                            </div>
+                            <div class="col-md-5">
+                                <h3 class="text-uppercase pb-4 pt-4">
+                                    @if($infos_visite->factures!=null)
+                                        <a class="form-control btn btn-info text-white" target="_blank" href="{{route('facture_visite_pdf',[$infos_visite->id])}}" > Telecharger facture en pdf </a>
+                                    @endif
+                                </h3>
+                            </div>
+                        </div>
                         <form class="form-horizontal form-material" method="post" action="{{route('modifier_facture',[$infos_vehicule->id,$infos_visite->id])}}">
                         <div class="row">
                                 <label>Immatriculation</label><br/>
@@ -508,10 +560,6 @@
                                         <div class="row py-2">
                                             @csrf
                                             <input class="form-control btn btn-success" type="submit" name="enregistrer_facture" value="Enregistrer la facture">
-                                        </div>
-
-                                        <div class="row py-2">
-                                            <input class="form-control btn btn-info text-white" type="submit" name="telecharger_en_pdf_3" value="Telecharger facture en pdf">
                                         </div>
                                     </div>
                                 </div>

@@ -29,6 +29,37 @@
                 <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
             </div>
 
+            <div class="row">
+                <table style="width: 100%;margin: 8px">
+                    <tbody>
+                        <td>
+                            <div class="col-md-4">
+                                <label for="client" >{{ __('Client') }}</label>
+                            </div>
+                            <div class="col-md-4">
+                                <x-jet-input id="client" type="checkbox" required autofocus />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-md-4">
+                                <label for="client" >{{ __('Facture') }}</label>
+                            </div>
+                            <div class="col-md-4">
+                                <x-jet-input id="client" type="checkbox" required autofocus />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-md-4">
+                                <label for="client" >{{ __('Comptabilité') }}</label>
+                            </div>
+                            <div class="col-md-4">
+                                <x-jet-input id="client" type="checkbox" required autofocus />
+                            </div>
+                        </td>
+                    </tbody>
+                </table>
+            </div>
+
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                 <div class="mt-4">
                     <x-jet-label for="terms">

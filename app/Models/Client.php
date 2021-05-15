@@ -13,5 +13,8 @@ class Client extends Model
     public function vehicules(){
         return $this->hasMany(Vehicule::class,'id_client');
     }
+    public function visites(){
+        return $this->hasMany(Visite::class,'id_client');
+    }
 
 }
