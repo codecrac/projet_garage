@@ -43,6 +43,7 @@ class VehiculeController extends Controller
 
             $la_visite = new Visite();
             $la_visite->id_vehicule = $id_vehicule;
+            $la_visite->id_client = $id_client;
             $la_visite->date = $date_visite_technique;
             $la_visite->date_prochaine_visite = $date_prochaine_visite_technique;
             $la_visite->motif = $motif_garage;

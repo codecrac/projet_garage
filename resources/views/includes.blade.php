@@ -112,7 +112,7 @@
                         <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('bilan_par_mois')}}"
                            aria-expanded="false">
                             <i class="fa fa-globe" aria-hidden="true"></i>
-                            <span class="hide-menu">Bilan Hebdomadaire</span>
+                            <span class="hide-menu">Bilan Mensuel</span>
                         </a>
                     </li>
                   {{--  <li class="sidebar-item">

@@ -17,6 +17,7 @@ class PdfController extends Controller
 
         $df = $request->all();
 
+        $reference = "000001";
         $nom_client = $df['nom_client'];
         $marque = $df['marque'];
         $model = $df['model'];
@@ -59,12 +60,11 @@ class PdfController extends Controller
         $options->set('debugKeepTemp', TRUE);
         $options->set('isHtml5ParserEnabled', true);
 
-
         $domPdf = new Dompdf($options);
 //        $domPdf->loadHtmlFile('pdf.devis_rapide_pdf');
         $domPdf->loadHtml(view('pdf.devis_rapide_pdf',
                               compact('liste_objet','nom_client','marque','model','immatriculation',
-                                  'date_facture','grand_total','main_doeuvre','total_a_payer','base_64_image_garage','version_objet','total_a_payer_en_lettre'))
+                                  'date_facture','grand_total','main_doeuvre','total_a_payer','base_64_image_garage','version_objet','total_a_payer_en_lettre','reference'))
         );
 
         $domPdf->setPaper('A4');
@@ -74,8 +74,8 @@ class PdfController extends Controller
         $domPdf->render();
 
         //afficher le pdf
-        $nom = $date_facture.'-'.$immatriculation.'.pdf';
-        $domPdf->stream($nom,['Attachment'=>false]);
+        $nom_facture = $date_facture.'-'.$immatriculation.'.pdf';
+        $domPdf->stream($nom_facture,['Attachment'=>false]);
     }
 
     public function facture_visite_pdf(Request $request,$id_visite){

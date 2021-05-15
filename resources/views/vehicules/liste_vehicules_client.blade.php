@@ -60,12 +60,14 @@
                                                                $historique_visites = $item_vehicule->visites;
                                                          @endphp
                                                          @foreach($historique_visites as $item_visite)
-                                                             <td><?=$j++?></td>
-                                                             <td>{{$item_visite->date}}</td>
-                                                             <td>{{$item_visite->etat}}</td>
-                                                             <td>
-                                                                 <a href="{{route('editer_vehicule',[$item_vehicule->id,$item_visite->id])}}" class="mt-2 mt-1 mb-1 btn btn-primary"> + </a>
-                                                             </td>
+                                                             <tr>
+                                                                 <td><?=$j++?></td>
+                                                                 <td>{{$item_visite->date}}</td>
+                                                                 <td>{{$item_visite->etat}}</td>
+                                                                 <td>
+                                                                     <a href="{{route('editer_vehicule',[$item_vehicule->id,$item_visite->id])}}" class="mt-2 mt-1 mb-1 btn btn-primary"> + </a>
+                                                                 </td>
+                                                             </tr>
                                                          @endforeach
                                                          </tbody>
                                                      </table>

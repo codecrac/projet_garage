@@ -12,11 +12,11 @@ class VisiteController extends Controller
         $donnees_formulaire = $request->all();
 
         $etat = $donnees_formulaire['etat_travaux'];
-        $le_vehicule = Visite::findorfail($id_vehicule);
+        $la_visite = Visite::findorfail($id_vehicule);
 
-        $le_vehicule->etat = $etat;
+        $la_visite->etat = $etat;
 
-        if($le_vehicule->save()){
+        if($la_visite->save()){
             return redirect()->route("editer_vehicule",[$id_vehicule,$id_visite]);
         }else{
             echo "pb";
@@ -56,6 +56,9 @@ class VisiteController extends Controller
         $la_visite = Visite::find($id_visite);
         if($la_visite==null){
             $la_visite = new Visite();
+
+            $le_vehicule = Vehicule::findorfail($id_vehicule);
+            $la_visite->id_client = $le_vehicule->client->id;
             $la_visite->id_vehicule = $id_vehicule;
         }
 
@@ -104,6 +107,9 @@ class VisiteController extends Controller
         $la_visite = Visite::find($id_visite);
         if($la_visite==null){
             $la_visite = new Visite();
+
+            $le_vehicule = Vehicule::findorfail($id_vehicule);
+            $la_visite->id_client = $le_vehicule->client->id;
             $la_visite->id_vehicule = $id_vehicule;
         }
 
@@ -138,6 +144,9 @@ class VisiteController extends Controller
         $la_visite = Visite::find($id_visite);
         if($la_visite==null){
             $la_visite = new Visite();
+
+            $le_vehicule = Vehicule::findorfail($id_vehicule);
+            $la_visite->id_client = $le_vehicule->client->id;
             $la_visite->date = $df['date_visite_technique'];
             $la_visite->id_vehicule = $id_vehicule;
             $la_visite->total_versements =0;

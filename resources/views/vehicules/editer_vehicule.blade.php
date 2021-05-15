@@ -121,10 +121,10 @@
                 <form method="post" action="{{route('changer_etat_visite',[$infos_vehicule->id,$infos_visite->id])}}">
                     <select class="form-select shadow-none p-0 border-0 form-control-line" name="etat_travaux">
                         <option>{{$infos_visite->etat}}</option>
-                        <option>Non Debuter</option>
-                        <option>En cours</option>
-                        <option>Terminer</option>
-                        <option>rendu</option>
+                        <option value="Non Debuter">Non Debuter</option>
+                        <option value="En cours">En cours</option>
+                        <option value="Terminer">Terminer</option>
+                        <option value="rendu">rendu</option>
                     </select>
                     <br/>
                     @csrf
