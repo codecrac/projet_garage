@@ -81,39 +81,44 @@
 
                                      <div class="col-md-12 pt-1 text-center">
                                          <!-- Button trigger modal -->
-                                         <button type="button" class="btn btn-danger text-white" data-bs-toggle="modal" data-bs-target="#modalSuppression_{{$item_vehicule->id}}">
-                                             Supprimer
-                                         </button>
-                                         <!-- Modal SUPPRESSION-->
-                                         <div class="modal fade" id="modalSuppression_{{$item_vehicule->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                             <div class="modal-dialog">
-                                                 <div class="modal-content">
-                                                     <div class="modal-header">
-                                                         <h5 class="modal-title" id="exampleModalLabel">SUPPRESSION voiture {{$item_vehicule->immatriculation}}</h5>
-                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                     </div>
-                                                     <div class="modal-body">
+                                         @if(\Illuminate\Support\Facades\Auth::user()->supprimer == 'true')
+                                             <button type="button" class="btn btn-danger text-white" data-bs-toggle="modal" data-bs-target="#modalSuppression_{{$item_vehicule->id}}">
+                                                 Supprimer
+                                             </button>
+                                             <!-- Modal SUPPRESSION-->
+                                             <div class="modal fade" id="modalSuppression_{{$item_vehicule->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                 <div class="modal-dialog">
+                                                     <div class="modal-content">
+                                                         <div class="modal-header">
+                                                             <h5 class="modal-title" id="exampleModalLabel">SUPPRESSION voiture {{$item_vehicule->immatriculation}}</h5>
+                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                         </div>
+                                                         <div class="modal-body">
                                                          <span>Voulez-vous confirmer la suppression du vehicule <br/>
                                                              <b>{{$item_vehicule->immatriculation}}</b> <br/>
                                                              et de toutes les informations le concernant ? </span>
-                                                     </div>
-                                                     <div class="modal-footer">
-                                                         <div class="row">
-                                                             <div class="col-6">
-                                                                 <form method="post" action="{{route('supprimer_vehicule',[$item_vehicule->id,$le_client->id])}}">
-                                                                    @method('delete')
-                                                                     @csrf
-                                                                     <button type="submit" class="btn btn-danger text-white">OUI</button>
-                                                                 </form>
-                                                             </div>
-                                                             <div class="col-6 ">
-                                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NON</button>
+                                                         </div>
+                                                         <div class="modal-footer">
+                                                             <div class="row">
+                                                                 <div class="col-6">
+                                                                     <form method="post" action="{{route('supprimer_vehicule',[$item_vehicule->id,$le_client->id])}}">
+                                                                         @method('delete')
+                                                                         @csrf
+                                                                         <button type="submit" class="btn btn-danger text-white">OUI</button>
+                                                                     </form>
+                                                                 </div>
+                                                                 <div class="col-6 ">
+                                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NON</button>
+                                                                 </div>
                                                              </div>
                                                          </div>
                                                      </div>
                                                  </div>
                                              </div>
-                                         </div>
+
+                                         @else
+                                             <i class="text-danger" style="font-size: 10px"> Vous n'etes pas autoriser <br/>a effectuer des suppression </i>
+                                        @endif
 
                                      </div>
 

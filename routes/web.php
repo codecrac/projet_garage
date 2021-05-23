@@ -7,6 +7,7 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\VehiculeController;
 use App\Http\Controllers\VisiteController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Jetstream\Http\Controllers\Livewire\UserProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     /*|--------------------------------------------------------------------------
     | FRONTEND
     |--------------------------------------------------------------------------*/
+//###############################UTILISATEUR
+//###############################UTILISATEUR
+    Route::get('gestion_utilisateur', [FrontController::class, 'gestion_utilisateur'])->name('gestion_utilisateur');
+    Route::delete('supprimer_utilisateur/{id_utilisateur}', [UserProfileController::class, 'supprimer_utilisateur'])->name('supprimer_utilisateur');
 //###############################CLIENT
 //###############################CLIENT
     Route::get('nouveau_client', [FrontController::class, 'nouveau_client'])->name('nouveau_client');

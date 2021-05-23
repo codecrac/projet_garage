@@ -73,20 +73,8 @@
                             <span class="hide-menu">Liste des clients</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('devis_rapide')}}"
-                           aria-expanded="false">
-                            <i class="fa fa-table" aria-hidden="true"></i>
-                            <span class="hide-menu">Devis rapide</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('liste_facture')}}"
-                           aria-expanded="false">
-                            <i class="fa fa-table" aria-hidden="true"></i>
-                            <span class="hide-menu">Reglement de Factures</span>
-                        </a>
-                    </li>
+
+
                     <li class="sidebar-item">
                         <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('nouveau_vehicule')}}"
                            aria-expanded="false">
@@ -94,6 +82,7 @@
                             <span class="hide-menu">Nouveau véhicule</span>
                         </a>
                     </li>
+
                     <li class="sidebar-item">
                         <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('liste_vehicules_garage')}}"
                            aria-expanded="false">
@@ -101,34 +90,66 @@
                             <span class="hide-menu">Voitures dans le garage</span>
                         </a>
                     </li>
+
+
                     <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('nouveau_flux')}}"
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('devis_rapide')}}"
                            aria-expanded="false">
-                            <i class="fa fa-globe" aria-hidden="true"></i>
-                            <span class="hide-menu">Recette et Depense</span>
+                            <i class="fa fa-table" aria-hidden="true"></i>
+                            <span class="hide-menu">Devis rapide</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('bilan_par_mois')}}"
-                           aria-expanded="false">
-                            <i class="fa fa-globe" aria-hidden="true"></i>
-                            <span class="hide-menu">Bilan Mensuel</span>
-                        </a>
-                    </li>
-                  {{--  <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{asset('template/blank.html')}}"
-                           aria-expanded="false">
-                            <i class="fa fa-columns" aria-hidden="true"></i>
-                            <span class="hide-menu">Stock de materiaux</span>
-                        </a>
-                    </li>--}}
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('register')}}"
-                           aria-expanded="false">
-                            <i class="fa fa-user" aria-hidden="true"></i>
-                            <span class="hide-menu">Nouvel Utilisateur</span>
-                        </a>
-                    </li>
+
+                    @if(\Illuminate\Support\Facades\Auth::user()->comptabilite == 'true')
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('liste_facture')}}"
+                               aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">Reglement de Factures</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('nouveau_flux')}}"
+                               aria-expanded="false">
+                                <i class="fa fa-globe" aria-hidden="true"></i>
+                                <span class="hide-menu">Recette et Depense</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('bilan_par_mois')}}"
+                               aria-expanded="false">
+                                <i class="fa fa-globe" aria-hidden="true"></i>
+                                <span class="hide-menu">Bilan Mensuel</span>
+                            </a>
+                        </li>
+                    @else
+                        <li class="sidebar-item">
+                            <i class="text-danger text-center"> Vous n'avez pas acces a la comptabilité </i>
+                        </li>
+                    @endif
+
+                    @if(\Illuminate\Support\Facades\Auth::user()->creer_utilisateurs =='true')
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('register')}}"
+                               aria-expanded="false">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="hide-menu">Nouvel Utilisateur</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('gestion_utilisateur')}}"
+                               aria-expanded="false">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="hide-menu">Liste utilisateur</span>
+                            </a>
+                        </li>
+                    @else
+                        <li class="sidebar-item">
+                            <i class="text-info text-center"><br/> Vous n'etes pas autoriser à ajouter des utilisateurs </i>
+                        </li>
+                    @endif
                 </ul>
 
             </nav>
@@ -146,7 +167,9 @@
         <x-app-layout>
             <x-slot name="header">
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    {{ $titre }}
+                    @isset($titre)
+                        {{ $titre }}
+                    @endisset
                 </h2>
             </x-slot>
         <!-- ============================================================== -->

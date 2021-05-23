@@ -547,7 +547,7 @@
                                     @if($infos_visite->factures==null)
                                         <tr>
                                             <td>
-                                                <input class="form-control" type="text" name="objet[]" required/>
+                                                <input class="form-control" type="text" autocomplete="off" name="objet[]" required/>
                                             </td>
                                             <td>
                                                 <input class="form-control prix_unitaire" type="number" name="prix_unitaire[]" id="prix_unitaire_0" onkeyup="calcul_prix_total_ditem('0')"  required/>

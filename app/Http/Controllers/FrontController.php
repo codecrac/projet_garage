@@ -7,6 +7,7 @@ use App\Models\Client;
 use App\Models\FluxArgent;
 use App\Models\Marque;
 use App\Models\Modele;
+use App\Models\User;
 use App\Models\Vehicule;
 use App\Models\Visite;
 use Carbon\Carbon;
@@ -80,8 +81,9 @@ class FrontController extends Controller
 #===============================#===============================
         $nombre_voitures_dans_le_garage = Visite::where('etat','!=','rendu')->count();
         $nombre_client = Client::count();
+        $nombre_utilisateur = User::count();
         $titre = "Tableau de bord";
-        return view('dashboard',compact('titre','date_visite_en_approche','nombre_client','liste_anniversaire','nombre_voitures_dans_le_garage'));
+        return view('dashboard',compact('titre','date_visite_en_approche','nombre_client','liste_anniversaire','nombre_voitures_dans_le_garage','nombre_utilisateur'));
     }
 
 
@@ -238,5 +240,13 @@ class FrontController extends Controller
         $total_sortie = FluxArgent::where("date_hebdo",'=',$mois_a_afficher)->where("flux",'=','sortie')->sum('montant');
         $bilan_du_mois = FluxArgent::where('date_hebdo','=',$mois_a_afficher)->get();
         return view('comptabilite.bilan_comptable_du_mois',compact('titre','bilan_du_mois','mois_a_afficher','total_entree','total_sortie'));
+    }
+
+
+    #=============================
+    public function gestion_utilisateur(){
+        $titre = "GESTION DES UTILISATEURS";
+        $liste_utilisateur = User::all();
+        return view('liste_utilisateurs',compact('liste_utilisateur'));
     }
 }

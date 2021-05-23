@@ -53,9 +53,13 @@
                                 <div class="row m-4">
                                         <div class="col-md-4 text-left">
                                             <!-- Button trigger modal -->
+                                        @if(\Illuminate\Support\Facades\Auth::user()->supprimer == 'true')
                                             <button type="button" class="btn btn-danger text-white" data-bs-toggle="modal" data-bs-target="#modalSuppression">
                                                 Supprimer
                                             </button>
+                                        @else
+                                            <i class="text-danger"> Vous n'etes pas autoriser a effectuer des suppression </i>
+                                        @endif
                                             <!-- Modal -->
                                             <div class="modal fade" id="modalSuppression" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">

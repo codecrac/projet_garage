@@ -1,4 +1,7 @@
-<x-guest-layout>
+@extends('includes')
+
+@section('content')
+    <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
             <x-jet-authentication-card-logo />
@@ -10,7 +13,7 @@
             @csrf
 
             <div>
-                <x-jet-label for="name" value="{{ __('Name') }}" />
+                <x-jet-label for="name" value="{{ __('Nom') }}" />
                 <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             </div>
 
@@ -20,42 +23,46 @@
             </div>
 
             <div class="mt-4">
-                <x-jet-label for="password" value="{{ __('Password') }}" />
+                <x-jet-label for="password" value="{{ __('Mot de passe') }}" />
                 <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
             </div>
 
             <div class="mt-4">
-                <x-jet-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
+                <x-jet-label for="password_confirmation" value="{{ __('Confirmer mot de passe') }}" />
                 <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
             </div>
 
             <div class="row">
                 <table style="width: 100%;margin: 8px">
                     <tbody>
+                    <tr>
+                        <td>Peut acceder a la <b>Comptabilité</b> ? </td>
                         <td>
-                            <div class="col-md-4">
-                                <label for="client" >{{ __('Client') }}</label>
-                            </div>
-                            <div class="col-md-4">
-                                <x-jet-input id="client" type="checkbox" required autofocus />
-                            </div>
+                            <select class="form-select shadow-none pr-7 border-0 form-control-line searchable-select" required name="comptabilite">
+                                <option value="true">Oui</option>
+                                <option value="false">Non</option>
+                            </select>
                         </td>
+                    </tr>
+                    <tr>
+                        <td>Peut <b>supprimer</b> des elements ? </td>
                         <td>
-                            <div class="col-md-4">
-                                <label for="client" >{{ __('Facture') }}</label>
-                            </div>
-                            <div class="col-md-4">
-                                <x-jet-input id="client" type="checkbox" required autofocus />
-                            </div>
+                            <select class="form-select shadow-none pr-7 border-0 form-control-line searchable-select" required name="supprimer">
+                                <option value="true">Oui</option>
+                                <option value="false">Non</option>
+                            </select>
                         </td>
+                    </tr>
+                    <tr>
+                        <td>Peut <b>creer</b> des <b>utilisateurs</b> ? </td>
                         <td>
-                            <div class="col-md-4">
-                                <label for="client" >{{ __('Comptabilité') }}</label>
-                            </div>
-                            <div class="col-md-4">
-                                <x-jet-input id="client" type="checkbox" required autofocus />
-                            </div>
+                            <select class="form-select shadow-none pr-7 border-0 form-control-line searchable-select" required name="creer_utilisateurs">
+                                <option value="true">Oui</option>
+                                <option value="false">Non</option>
+                            </select>
                         </td>
+                    </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -89,3 +96,4 @@
         </form>
     </x-jet-authentication-card>
 </x-guest-layout>
+@endsection

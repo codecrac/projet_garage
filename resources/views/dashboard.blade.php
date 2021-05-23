@@ -57,9 +57,18 @@
                 <h3 class="box-title text-uppercase"> Fête d'anniversaire</h3>
             </a>
             <ul class="list-inline two-part d-flex align-items-center mb-0">
-                <li class="ms-auto blink" style="padding: 15px;background-color: red;color: white !important;">
-                    <span class="counter">{{sizeof($liste_anniversaire)}}</span>
+                <li>
+                    <div id="sparklinedash">
+                        .<br/>
+                        <canvas width="67" height="30"
+                                                    style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                    </div>
                 </li>
+                @if(sizeof($date_visite_en_approche) > 0)
+                    <li class="ms-auto blink" style="padding: 15px;background-color: red;color: white !important;">
+                        <span class="counter">{{sizeof($liste_anniversaire)}}</span>
+                    </li>
+                @endif
 
             </ul>
         </div>
@@ -118,6 +127,23 @@
             </ul>
         </div>
     </div>
+    @if(\Illuminate\Support\Facades\Auth::user()->creer_utilisateurs =='true')
+        <div class="col-lg-4 col-md-12">
+            <div class="white-box analytics-info">
+                <a href="{{route('liste_client')}}">
+                    <h3 class="box-title  text-uppercase">Nombre d'administrateur <br/>.</h3>
+                </a>
+                <ul class="list-inline two-part d-flex align-items-center mb-0">
+                    <li>
+                        <div id="sparklinedash2"><canvas width="67" height="30"
+                                                         style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                        </div>
+                    </li>
+                    <li class="ms-auto"><span class="counter text-purple">{{$nombre_utilisateur}}</span></li>
+                </ul>
+            </div>
+        </div>
+    @endif
 
 </div>
 {{--                <!-- ============================================================== -->--}}

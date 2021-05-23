@@ -79,14 +79,18 @@
                                 @foreach($liste_versement as $item_versement)
                                 <tr>
                                     <td> {{$item_versement->date_versement }} </td>
-                                    <td> {{ $item_versement->montant }} </td>
+                                    <td> {{ $item_versement->montant }} F </td>
                                     <td> {{ $item_versement->mode_de_paiement }} </td>
                                     <td>
-                                        <form method="post" action="{{route('supprimer_versement_facture',[$versements_facture->id,$i++])}}">
-                                            @method('delete')
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger text-white">Supprimer le versement</button>
-                                        </form>
+                                        @if(\Illuminate\Support\Facades\Auth::user()->supprimer =='true')
+                                            <form method="post" action="{{route('supprimer_versement_facture',[$versements_facture->id,$i++])}}">
+                                                @method('delete')
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger text-white">Supprimer le versement</button>
+                                            </form>
+                                        @else
+                                            <i class="text-danger" style="font-size: 10px">Vous n'etes pas autoriser <br/>a effectuer des suppressions</i>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach
