@@ -23,7 +23,7 @@
                     <div class="form-group mb-4">
                         <label for="example-email" class="col-md-12 p-0">Email </label>
                         <div class="col-md-12 border-bottom p-0">
-                            <input type="email" placeholder="johnathan@admin.com" class="form-control p-0 border-0" name="email" id="example-email" required>
+                            <input type="email" placeholder="johnathan@admin.com" class="form-control p-0 border-0" name="email" id="example-email">
                         </div>
                     </div>
                     <div class="form-group mb-4">
@@ -44,6 +44,13 @@
                             <input type="text" placeholder="Preciser le lieu a l'interieur" class="form-control p-0 border-0" name="localisation_interieur" id="localisation_interieur">
                         </div>
                     </div>
+
+                    <div class="form-group mb-4">
+                        <label class="col-md-12 p-0">Date de naissance <i class="text-danger">*</i></label>
+                        <div class="col-md-12 border-bottom p-0">
+                            <input type="date" max="{{date('Y-m-d')}}" placeholder="123 456 7890" class="form-control p-0 border-0" name="date_naissance">
+                        </div>
+                    </div>
             </div>
             <!-- Column -->
 {{--            ======================INFORMATIONS VEHICULES=====================--}}
@@ -51,52 +58,73 @@
                 <div class="card">
                     <div class="card-body">
                         <h3 class="text-uppercase pb-4 pt-4">INFORMATIONS VEHICULE</h3>
-                            <div class="form-group mb-4">
-                                <label class="col-md-12 p-0">Marque</label>
-                                <div class="col-md-12 border-bottom p-0">
-                                    <select class="form-select shadow-none p-0 border-0 form-control-line" name="marque">
-                                        <option>Choisissez une marque</option>
 
-                                        <option>Kia</option>
-                                        <option>Wolksagen</option>
-                                    </select>
+
+                        <div class="form-group mb-4">
+                            <label class="col-md-12 p-0">Marque</label>
+                            <div class="col-md-12 border-bottom p-0">
+
+                                <datalist id="liste_marque">
+                                    @foreach( $liste_marque as $item_marque )
+                                        <option value="{{$item_marque->constructeur}}"> {{$item_marque->constructeur}} </option>
+                                    @endforeach
+                                </datalist>
+
+                                <input type="text" list="liste_marque" id="marque_choisie" name="marque" autocomplete="off" class="form-control p-0 border-0" required>
+                            </div>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="example-email" class="col-md-12 p-0">Model</label>
+                            <div class="col-md-12 border-bottom p-0">
+
+                                <datalist id="liste_modele">
+                                </datalist>
+
+                                <div class="col-md-12 border-bottom p-0">
+                                    <span id="chargement_en_cours" style="color: red"> Chargement des suggestions de model</span>
+                                    <input type="text" list="liste_modele" id="input_modele" autocomplete="off"  placeholder="Entrer un Modele" name="model" class="form-control p-0 border-0" required>
                                 </div>
                             </div>
-                            <div class="form-group mb-4">
-                                <label for="example-email" class="col-md-12 p-0">Model</label>
-                                <div class="col-md-12 border-bottom p-0">
-                                    <select class="form-select shadow-none p-0 border-0 form-control-line" name="model">
-                                        <option>Choisissez un Model</option>
-
-                                        <option>sportage</option>
-                                        <option>un model</option>
-                                    </select>
-                                </div>
-                            </div>
+                        </div>
                             <div class="form-group mb-4">
                                 <label class="col-md-12 p-0">Immatriculation</label>
                                 <div class="col-md-12 border-bottom p-0">
                                     <input type="text" placeholder="00JKHDJKD" class="form-control p-0 border-0" name="immatriculation">
                                 </div>
                             </div>
+
                             <div class="form-group mb-4">
                                 <label class="col-md-12 p-0">No de Chassis</label>
                                 <div class="col-md-12 border-bottom p-0">
                                     <input type="text" placeholder="12354578909090905" max="17" min="17" class="form-control p-0 border-0" name="numero_chassis">
                                 </div>
                             </div>
+
                         <div class="form-group mb-4">
                             <label for="example-email" class="col-md-12 p-0">Annee</label>
                             <div class="col-md-12 border-bottom p-0">
-                                <input type="text" placeholder="2018" max="17" min="17" class="form-control p-0 border-0" name="annee">
+{{--                                <input type="text" placeholder="2018" max="17" min="17" class="form-control p-0 border-0" name="annee">--}}
+                                <select class="form-select shadow-none p-0 border-0 form-control-line" name="annee">
+                                    <option value> Choisissez l'annee </option>
+                                    @foreach( $tableau_annee as $item_annee )
+                                        <option value="{{$item_annee}}"> {{$item_annee}} </option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
+
                         <div class="form-group mb-4">
                             <label for="example-email" class="col-md-12 p-0">Energie</label>
                             <div class="col-md-12 border-bottom p-0">
-                                <input type="text" placeholder="Gasoil" max="17" min="17" class="form-control p-0 border-0" name="energie">
+                                <select class="form-select shadow-none p-0 border-0 form-control-line" name="energie">
+                                    <option value> Choisissez l'energie </option>
+                                    <option value="essence"> Essence </option>
+                                    <option value="diesel"> Diesel </option>
+                                    <option value="hybride"> Hybride </option>
+                                </select>
                             </div>
                         </div>
+
                             <div class="form-group mb-4">
                                 <label class="col-md-12 p-0">Motif garage</label>
                                 <div class="col-md-12 border-bottom p-0">
@@ -108,7 +136,7 @@
                             <div class="form-group mb-4">
                                 <label class="col-md-12 p-0">Date de la visite</label>
                                 <div class="col-md-12 border-bottom p-0">
-                                    <input type="date" placeholder="123 456 7890" class="form-control p-0 border-0" name="date_visite_technique">
+                                    <input type="date" max="{{date('Y-m-d')}}" placeholder="123 456 7890" class="form-control p-0 border-0" name="date_visite_technique">
                                 </div>
                             </div>
                             <div class="form-group mb-4">
@@ -133,3 +161,44 @@
     </div>
 @endsection
 
+
+@section('script')
+    <script>
+        $("#marque_choisie").on("keyup", function(event) {
+            var _this = $(this);
+            var value = _this.val();
+            if(value!=''){
+                $("#chargement_en_cours").css('display','block');
+                $.ajax({
+                    url: "/get-model/"+value,
+                    success: function(liste_modele) {
+                        $("#liste_modele").empty();
+                        for (var i in liste_modele) {
+                            $("<option/>").html(liste_modele[i]).appendTo("#liste_modele");
+                        }
+                    }
+                });
+                $("#chargement_en_cours").css('display','none');
+            }
+        });
+
+        $("#marque_choisie").on("change", function(event) {
+            var _this = $(this);
+            var value = _this.val();
+
+            if(value!='') {
+                $("#chargement_en_cours").css('display','block');
+                $.ajax({
+                    url: "/get-model/" + value,
+                    success: function (liste_modele) {
+                        $("#liste_modele").empty();
+                        for (var i in liste_modele) {
+                            $("<option/>").html(liste_modele[i]).appendTo("#liste_modele");
+                        }
+                    }
+                });
+                $("#chargement_en_cours").css('display','none');
+            }
+        });
+    </script>
+@endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Marque;
 use App\Models\Vehicule;
 use App\Models\Visite;
 use Illuminate\Http\Request;
@@ -12,15 +13,18 @@ class VisiteController extends Controller
         $donnees_formulaire = $request->all();
 
         $etat = $donnees_formulaire['etat_travaux'];
-        $la_visite = Visite::findorfail($id_vehicule);
+        $la_visite = Visite::findorfail($id_visite);
 
         $la_visite->etat = $etat;
 
         if($la_visite->save()){
-            return redirect()->route("editer_vehicule",[$id_vehicule,$id_visite]);
+            $id_visite = $la_visite->id;
+            $notif = "<div class='alert alert-success text-center'> Etat des travaux mis a jour avec succes </div>";
         }else{
-            echo "pb";
+            $notif = "<div class='alert alert-danger'> Echec de l'operation </div>";
         }
+        return redirect()->route("editer_vehicule",[$id_vehicule,$id_visite])->with('notification',$notif);
+
     }
 
     public function modifier_informations_voitures(Request $request,$id_vehicule,$id_visite){
@@ -45,7 +49,15 @@ class VisiteController extends Controller
 
 
         if($le_vehicule->save()){
+            $present = Marque::where('constructeur','=',$marque)->get();
+            if(sizeof($present)<1){
+                $nw_marque = new Marque();
+                $nw_marque->constructeur = $marque;
+                $nw_marque->save();
+            }
+
             return redirect()->route("editer_vehicule",[$id_vehicule,$id_visite]);
+
         }else{
             echo "pb";
         }
@@ -71,19 +83,21 @@ class VisiteController extends Controller
         $liste_objet = [];
         $nombre_objet = sizeof($df['objet']);
         for ($i=0;$i<$nombre_objet;$i++){
-            $objet = $df['objet'][$i];
+            $nom_objet = $df['objet'][$i];
             $quantite = $df['quantite'][$i];
             $etat = $df['etat'][$i];
             $observation = $df['observation'][$i];
 
             $objet = [
-                'objet' => $objet,
+                'objet' => $nom_objet,
                 'quantite' => $quantite,
                 'etat' => $etat,
                 'observation' => $observation
             ];
 
-            array_push($liste_objet,$objet);
+            if(!empty($nom_objet)){
+                array_push($liste_objet,$objet);
+            }
         }
         $etat_des_lieux =json_encode($liste_objet);
 

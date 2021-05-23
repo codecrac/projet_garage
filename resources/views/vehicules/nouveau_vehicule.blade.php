@@ -31,38 +31,54 @@
                 <div class="card">
                     <div class="card-body">
                         <h3 class="text-uppercase pb-4 pt-4">INFORMATIONS VEHICULE</h3>
-                            <div class="form-group mb-4">
-                                <label class="col-md-12 p-0">Marque</label>
-                                <div class="col-md-12 border-bottom p-0">
-                                    <select class="form-select shadow-none p-0 border-0 form-control-line" name="marque" required>
-                                        <option>Choisissez une marque</option>
 
-                                        <option>Kia</option>
-                                        <option>Wolksagen</option>
-                                    </select>
+                        <div class="form-group mb-4">
+                            <label class="col-md-12 p-0">Marque</label>
+                            <div class="col-md-12 border-bottom p-0">
+
+                                <datalist id="liste_marque">
+                                    @foreach( $liste_marque as $item_marque )
+                                        <option value="{{$item_marque->constructeur}}"> {{$item_marque->constructeur}} </option>
+                                    @endforeach
+                                </datalist>
+
+                                <input type="text" list="liste_marque" id="marque_choisie" name="marque" autocomplete="off" class="form-control p-0 border-0" required>
+                            </div>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="example-email" class="col-md-12 p-0">Model</label>
+                            <div class="col-md-12 border-bottom p-0">
+
+                                <datalist id="liste_modele">
+                                </datalist>
+
+                                <div class="col-md-12 border-bottom p-0">
+                                    <span id="chargement_en_cours" style="color: red"> Chargement des suggestions de model</span>
+                                    <input type="text" list="liste_modele" id="input_modele" autocomplete="off"  placeholder="Entrer un Modele" name="model" class="form-control p-0 border-0" required>
                                 </div>
                             </div>
-                            <div class="form-group mb-4">
-                                <label for="example-email" class="col-md-12 p-0">Model</label>
-                                <div class="col-md-12 border-bottom p-0">
-                                    <select class="form-select shadow-none p-0 border-0 form-control-line" name="model" required>
-                                        <option>Choisissez un Model</option>
+                        </div>
 
-                                        <option>sportage</option>
-                                        <option>un model</option>
-                                    </select>
-                                </div>
-                            </div>
                             <div class="form-group mb-4">
                                 <label for="example-email" class="col-md-12 p-0">Annee</label>
                                 <div class="col-md-12 border-bottom p-0">
-                                    <input type="text" placeholder="12354578909090905"  required class="form-control p-0 border-0" name="annee">
+                                    <select class="form-select shadow-none p-0 border-0 form-control-line" name="energie">
+                                        <option value> Choisissez l'annee </option>
+                                        @foreach( $tableau_annee as $item_annee )
+                                            <option value="{{$item_annee}}"> {{$item_annee}} </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group mb-4">
-                                <label for="example-email" class="col-md-12 p-0">Energie</label>
+                                <label for="example-email" class="col-md-12 p-0">Energie </label>
                                 <div class="col-md-12 border-bottom p-0">
-                                    <input type="text" placeholder="12354578909090905" max="17" min="17"  required class="form-control p-0 border-0" name="energie">
+                                    <select class="form-select shadow-none p-0 border-0 form-control-line" name="energie">
+                                        <option value> Choisissez l'energie </option>
+                                        <option value="essence"> Essence </option>
+                                        <option value="diesel"> Diesel </option>
+                                        <option value="hybride"> Hybride </option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group mb-4">
@@ -113,4 +129,46 @@
         </div>
         </form>
     </div>
+@endsection
+
+
+@section('script')
+    <script>
+        $("#marque_choisie").on("keyup", function(event) {
+            var _this = $(this);
+            var value = _this.val();
+            if(value!=''){
+                $("#chargement_en_cours").css('display','block');
+                $.ajax({
+                    url: "/get-model/"+value,
+                    success: function(liste_modele) {
+                        $("#liste_modele").empty();
+                        for (var i in liste_modele) {
+                            $("<option/>").html(liste_modele[i]).appendTo("#liste_modele");
+                        }
+                    }
+                });
+                $("#chargement_en_cours").css('display','none');
+            }
+        });
+
+        $("#marque_choisie").on("change", function(event) {
+            var _this = $(this);
+            var value = _this.val();
+
+            if(value!='') {
+                $("#chargement_en_cours").css('display','block');
+                $.ajax({
+                    url: "/get-model/" + value,
+                    success: function (liste_modele) {
+                        $("#liste_modele").empty();
+                        for (var i in liste_modele) {
+                            $("<option/>").html(liste_modele[i]).appendTo("#liste_modele");
+                        }
+                    }
+                });
+                $("#chargement_en_cours").css('display','none');
+            }
+        });
+    </script>
 @endsection

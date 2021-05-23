@@ -5,6 +5,10 @@
         .active{
             border: 2px solid red;
         }
+        #chargement_en_cours{
+            display: none;
+            color: red;
+        }
     </style>
 @endsection
 
@@ -69,17 +73,42 @@
 
 {{--=============================DATA LIST=============================--}}
 <datalist id="liste_objet">
-    <option value="Edge">
-    <option value="Firefox">
-    <option value="Chrome">
-    <option value="Opera">
-    <option value="Safari">
+    <option value="Crick[manivelle]">
+    <option value="Clé de roue">
+    <option value="Enjoliver">
+    <option value="Bouchons de roue">
+    <option value="Pieces du vehicules">
+    <option value="Rétroiviseur exterieur">
+    <option value="Rétroiviseur interieur">
+    <option value="Feu d'aille">
+    <option value="Feu arriere">
+    <option value="Phare">
+    <option value="Pare-brise arriere">
+    <option value="Pare-brise avant">
+    <option value="Signe distinctif">
+    <option value="Climatisation">
+    <option value="Check moteur">
+    <option value="Abs">
+    <option value="Airbag">
 </datalist>
 
 <datalist id="liste_objet_fiche">
-    <option value="objet fiche 1">
-    <option value="objet fiche 3">
-    <option value="objet fiche 5">
+    <option value="Rotule">
+    <option value="Biellette de crémaillère">
+    <option value="Embout de crémaillère">
+    <option value="Bras de suspension">
+    <option value="Amortisseur arrière">
+    <option value="Robot avant">
+    <option value="Silentbloc de barre stabilisatrice arrière">
+    <option value="Silentbloc de tirant arrière">
+    <option value="Disque de roue avant">
+    <option value="Tambour arrière">
+    <option value="KIT de garniture arrière">
+    <option value="Câble de frein à main">
+    <option value="Soufflet de crémaillère">
+    <option value="Etrier">
+    <option value="Electricité">
+    <option value="Parallélisme et réglage de phare">
 </datalist>
 
 <datalist id="liste_etat_fiche">
@@ -142,36 +171,54 @@
                         <br>
                             <h3 class="text-uppercase pb-4 pt-4">INFORMATIONS VEHICULE</h3>
                         <form class="form-horizontal form-material" method="post" action="{{route('modifier_informations_voitures',[$infos_vehicule->id,$infos_visite->id])}}">
-                        <div class="form-group mb-4">
+                                <div class="form-group mb-4">
                                     <label class="col-md-12 p-0">Marque</label>
                                     <div class="col-md-12 border-bottom p-0">
-                                        <select class="form-select shadow-none p-0 border-0 form-control-line" name="marque">
-                                            <option value="{{$infos_vehicule->id_marque}}">{{$infos_vehicule->id_marque}}</option>
-                                            <option>Kia</option>
-                                            <option>Wolksagen</option>
-                                        </select>
+
+                                        <datalist id="liste_marque">
+                                            @foreach( $liste_marque as $item_marque )
+                                                <option value="{{$item_marque->constructeur}}"> {{$item_marque->constructeur}} </option>
+                                            @endforeach
+                                        </datalist>
+
+                                        <input type="text" list="liste_marque" id="marque_choisie" name="marque" autocomplete="off" class="form-control p-0 border-0" value="{{$infos_vehicule->id_marque}}" required>
                                     </div>
                                 </div>
                                 <div class="form-group mb-4">
                                     <label for="example-email" class="col-md-12 p-0">Model</label>
                                     <div class="col-md-12 border-bottom p-0">
-                                        <select class="form-select shadow-none p-0 border-0 form-control-line" name="model">
-                                            <option value="{{$infos_vehicule->id_model}}">{{$infos_vehicule->id_model}}</option>
-                                            <option>sportage</option>
-                                            <option>un model</option>
-                                        </select>
+
+                                        <datalist id="liste_modele">
+                                        </datalist>
+
+                                        <div class="col-md-12 border-bottom p-0">
+                                            <span id="chargement_en_cours" style="color: red"> Chargement des suggestions de model</span>
+                                            <input type="text" list="liste_modele" id="input_modele" value="{{$infos_vehicule->id_model}}" autocomplete="off"  placeholder="Entrer un Modele" name="model" class="form-control p-0 border-0" required>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group mb-4">
                                     <label for="example-email" class="col-md-12 p-0">Annee</label>
                                     <div class="col-md-12 border-bottom p-0">
-                                        <input type="text" placeholder="2018" max="17" min="17" value="{{$infos_vehicule->annee}}" class="form-control p-0 border-0" name="annee">
+{{--                                        <input type="text" placeholder="2018" max="17" min="17" value="{{$infos_vehicule->annee}}" class="form-control p-0 border-0" name="annee">--}}
+                                        <select class="form-select shadow-none p-0 border-0 form-control-line" name="annee">
+                                            <option value="{{$infos_vehicule->annee}}"> {{$infos_vehicule->annee}} </option>
+                                            @foreach( $tableau_annee as $item_annee )
+                                                <option value="{{$item_annee}}"> {{$item_annee}} </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group mb-4">
                                     <label for="example-email" class="col-md-12 p-0">Energie</label>
                                     <div class="col-md-12 border-bottom p-0">
-                                        <input type="text" placeholder="Gasoil" max="17" min="17"value="{{$infos_vehicule->energie}}" class="form-control p-0 border-0" name="energie">
+{{--                                        <input type="text" placeholder="Gasoil" max="17" min="17"value="{{$infos_vehicule->energie}}" class="form-control p-0 border-0" name="energie">--}}
+                                        <select class="form-select shadow-none p-0 border-0 form-control-line" name="energie">
+                                            <option valuw="{{$infos_vehicule->energie}}"> {{$infos_vehicule->energie}} </option>
+                                            <option value="essence"> Essence </option>
+                                            <option value="diesel"> Diesel </option>
+                                            <option value="hybride"> Hybride </option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group mb-4">
@@ -208,7 +255,6 @@
                     <div class="card-body">
                         <a href="{{route('liste_vehicules_client',[1])}}" class="btn btn-default text-black">RETOUR</a>
                         <br>
-
                         <div class="row">
                             <div class="col-md-5">
                                 <h3 class="text-uppercase pb-4 pt-4"> ETAT DES LIEUX</h3>
@@ -301,6 +347,12 @@
                                         </tbody>
                                     </table>
 
+
+                                    <div class="col-12 text-center">
+                                        <a class="btn btn-info" onclick="addNewRow('etat_des_lieux')">+</a>
+                                        <a class="btn btn-danger" onclick="removeLastRow('etat_des_lieux')">-</a>
+                                    </div>
+
                                     <div class="row">
                                         <div class="col-md-3">
                                             <label>Kilometrage</label>
@@ -319,10 +371,6 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 text-center">
-                                        <a class="btn btn-info" onclick="addNewRow('etat_des_lieux')">+</a>
-                                        <a class="btn btn-danger" onclick="removeLastRow('etat_des_lieux')">-</a>
-                                    </div>
                                 </div>
 
 
@@ -577,5 +625,42 @@
 @section('script')
     <script>
         changer_section('section_etat_des_lieux');
+
+        $("#marque_choisie").on("keyup", function(event) {
+            var _this = $(this);
+            var value = _this.val();
+            if(value!=''){
+                $("#chargement_en_cours").css('display','block');
+                $.ajax({
+                    url: "/get-model/"+value,
+                    success: function(liste_modele) {
+                        $("#liste_modele").empty();
+                        for (var i in liste_modele) {
+                            $("<option/>").html(liste_modele[i]).appendTo("#liste_modele");
+                        }
+                    }
+                });
+                $("#chargement_en_cours").css('display','none');
+            }
+        });
+
+        $("#marque_choisie").on("change", function(event) {
+            var _this = $(this);
+            var value = _this.val();
+
+            if(value!='') {
+                $("#chargement_en_cours").css('display','block');
+                $.ajax({
+                    url: "/get-model/" + value,
+                    success: function (liste_modele) {
+                        $("#liste_modele").empty();
+                        for (var i in liste_modele) {
+                            $("<option/>").html(liste_modele[i]).appendTo("#liste_modele");
+                        }
+                    }
+                });
+                $("#chargement_en_cours").css('display','none');
+            }
+        });
     </script>
 @endsection

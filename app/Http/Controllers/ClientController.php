@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Marque;
+use App\Models\Modele;
 use App\Models\Vehicule;
 use App\Models\Visite;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\AssignOp\Mod;
 
 class ClientController extends Controller
 {
@@ -18,6 +21,7 @@ class ClientController extends Controller
         $email = $donnees_formulaire['email'];
         $localisation = $donnees_formulaire['localisation'];
         $localisation_interieur = $donnees_formulaire['localisation_interieur'];
+        $date_naissance = $donnees_formulaire['date_naissance'];
         if($localisation_interieur!=null){
             $localisation = $localisation_interieur;
         }
@@ -30,6 +34,7 @@ class ClientController extends Controller
         $le_client->telephone = $telephone;
         $le_client->email = $email;
         $le_client->localisation = $localisation;
+        $le_client->date_naissance = $date_naissance;
         $le_client->created_at = $created_at;
         $le_client->updated_at = $updated_at;
 
@@ -59,6 +64,21 @@ class ClientController extends Controller
 
 
         if($le_vehicule->save()){
+            $present = Marque::where('constructeur','=',$marque)->get();
+            if(sizeof($present) <1){
+                $nw_marque = new Marque();
+                $nw_marque->constructeur = $marque;
+                $nw_marque->save();
+            }
+
+            $present = Modele::where('modele','=',$model)->get();
+            if(sizeof($present) <1){
+                $nw_modele = new Modele();
+                $nw_modele->modele = $model;
+                $nw_modele->marque_parente = $marque;
+                $nw_modele->save();
+            }
+
             echo "enregistrement le_vehicule effectuer <br/>";
         }
 

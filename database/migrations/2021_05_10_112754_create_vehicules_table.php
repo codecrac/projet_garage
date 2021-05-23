@@ -23,7 +23,6 @@ class CreateVehiculesTable extends Migration
             $table->string("annee");
             $table->string("immatriculation");
             $table->string("numero_chassis");
-            $table->timestamps();
         });
     }
 

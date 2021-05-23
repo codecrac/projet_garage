@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\BilanComptable;
 use App\Models\Client;
 use App\Models\FluxArgent;
+use App\Models\Marque;
+use App\Models\Modele;
 use App\Models\Vehicule;
 use App\Models\Visite;
 use Carbon\Carbon;
@@ -13,6 +15,7 @@ use Illuminate\Http\Request;
 //PDF
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Matrix\Exception;
 use NumberFormatter;
 
 class FrontController extends Controller
@@ -22,15 +25,63 @@ class FrontController extends Controller
     }
 
     public function dashboard(){
+#===============================MARQUE ET MODELE#===============================
+
+        $tableau_marque = [ 'Bmw','Daewoo','Ford','Holden','Honda','Hyundai',
+                            'Isuzu','Kia','Lexus','Mazda','Mitsubishi','Nissan',
+                            'Peugeot','Subaru','Suzuki','Toyota','Volkswagen',
+                            'Renault','Mercedes','Opel','Audi','Citroën','Acura',
+                            'Alfa Romeo','Alpine','Aston-Martin','Bentley','Bugatti',
+                            'Cadillac','Chery','Chrysler','Dacia','Fiat','Gaz',
+                            'Hafei','Jeep','Land Rover','Lexus','Lincoln','Mazda',
+                            'Mercedes-Benz','Mitsubishi','Nissan','Porshe','Volvo'];
+        ;
+
+//        $tableau_marque = [ 'Kia'];
+        $model_marque = [
+            'Kia'=>['Sorento','Sportage','Seltos','Mohave','Rio','Forte','Optima','K5','Cadenza','Stinger','K900','Soul','Niro','Seltos','Telluride','Sedona'],
+            'Bmw'=>['X1','X2','X2 M35i','Serie 3 Berline','M3 Competition Berline','Serie 8 coupé'],
+        ];
+
+
+        foreach ($tableau_marque as $item_marque):
+            $la_marque = new Marque();
+            $la_marque->constructeur = $item_marque;
+
+            $present = Marque::where('constructeur','=',$item_marque)->get();
+            if(sizeof($present) <1){
+                $la_marque->save();
+            }
+
+            if(isset($model_marque[$item_marque])){
+                foreach ($model_marque[$item_marque] as $item_modele):
+                    $model_present = Modele::where('modele','=',$item_modele)->get();
+                    if(sizeof($model_present) <1) {
+                        $le_modele = new Modele();
+                        $le_modele->modele = $item_modele;
+                        $le_modele->marque_parente = $item_marque;
+                        $le_modele->save();
+                    }
+                endforeach;
+            }
+        endforeach;
+#===============================#$anniversaire===============================
+// start range 10 days ago
+        $start = date('z') + 1 - 10;
+// end range 10 days from now
+        $end = date('z') + 1 + 10;
+        $liste_anniversaire = Client::whereRaw("DAYOFYEAR(date_naissance) BETWEEN $start AND $end")->get();
+#===============================#date_prochaine_visite===============================
 
         $today= date('Y-m-d');
         $dans_10_jour = date("Y-m-d", strtotime("+10 day"));
-        $date_visite_en_approche = Visite::where('date_prochaine_visite','>=',$today)->where('date_prochaine_visite','<=',$dans_10_jour)->get();
-
+        $date_visite_en_approche = Visite::where('date_prochaine_visite','>=',$today)
+            ->where('date_prochaine_visite','<=',$dans_10_jour)->get();
+#===============================#===============================
         $nombre_voitures_dans_le_garage = Visite::where('etat','!=','rendu')->count();
         $nombre_client = Client::count();
         $titre = "Tableau de bord";
-        return view('dashboard',compact('titre','date_visite_en_approche','nombre_client','nombre_voitures_dans_le_garage'));
+        return view('dashboard',compact('titre','date_visite_en_approche','nombre_client','liste_anniversaire','nombre_voitures_dans_le_garage'));
     }
 
 
@@ -39,10 +90,25 @@ class FrontController extends Controller
         $titre = "FREQUENCE CLIENT";
         return view('dashboard.classement_frequence_clients',compact('titre','les_clients'));
     }
+
+    public function fete_danniverssaire(){
+        $les_clients = Client::all();
+        $titre = "FETE D'ANNIVERSSAIRE";
+
+// start range 10 days ago
+        $start = date('z') + 1 - 10;
+// end range 10 days from now
+        $end = date('z') + 1 + 10;
+        $les_clients = Client::whereRaw("DAYOFYEAR(date_naissance) BETWEEN $start AND $end")->get();
+
+        return view('dashboard.fete_danniverssaire',compact('titre','les_clients'));
+    }
+
     public function visites_en_approche(){
         $today= date('Y-m-d');
         $dans_10_jour = date("Y-m-d", strtotime("+10 day"));
-        $les_visites = Visite::where('date_prochaine_visite','>=',$today)->where('date_prochaine_visite','<=',$dans_10_jour)->get();
+        $les_visites = Visite::where('date_prochaine_visite','>=',$today)->where('date_prochaine_visite','<=',$dans_10_jour)
+            ->orderBy('date_prochaine_visite','ASC')->get();
 //        dd($dans_10_jour,$date_visite_en_approche);
         $titre = "LISTE DES VISTES PREVUES DANS LES 10 PROCHAINS JOURS";
         return view('dashboard.visites_proches',compact('titre','les_visites'));
@@ -50,8 +116,15 @@ class FrontController extends Controller
 //========================================CLIENT===========================
     public function nouveau_client(){
         $titre = "Nouveau Client";
-        return view('clients.nouveau_client',compact('titre'));
+
+        $tableau_annee = array();
+        for($i = 0; $i < 30; $i++)
+            $tableau_annee[] = date("Y", strtotime('-'. $i .' years'));
+        $liste_marque = Marque::all();
+        $liste_modele = Modele::all();
+        return view('clients.nouveau_client',compact('titre','tableau_annee','liste_marque','liste_modele'));
     }
+
     public function liste_client(){
         $titre = "Liste des Clients";
         $les_clients = Client::all();
@@ -66,8 +139,13 @@ class FrontController extends Controller
 //=================VOITURES
     public function nouveau_vehicule(){
         $titre = "Nouveau vehicule";
+        $tableau_annee = array();
+        for($i = 0; $i < 30; $i++)
+            $tableau_annee[] = date("Y", strtotime('-'. $i .' years'));
         $les_clients = Client::all();
-        return view('vehicules.nouveau_vehicule',compact('titre','les_clients'));
+        $liste_marque = Marque::all();
+        $liste_modele = Modele::all();
+        return view('vehicules.nouveau_vehicule',compact('titre','tableau_annee','les_clients','liste_modele','liste_marque'));
     }
     public function liste_vehicules_garage(){
         $titre = "Liste vehicules dans le garage";
@@ -82,6 +160,11 @@ class FrontController extends Controller
         return view('vehicules.liste_vehicules_client',compact('titre','le_client','les_vehicules'));
     }
     public function editer_vehicule(int $id_vehicule,$id_visite=null){
+
+        $tableau_annee = array();
+        for($i = 0; $i < 30; $i++)
+            $tableau_annee[] = date("Y", strtotime('-'. $i .' years'));
+
         $titre = "Gestion du vehicule";
         $infos_vehicule = Vehicule::findorfail($id_vehicule);
         if($id_visite!=null){
@@ -93,8 +176,18 @@ class FrontController extends Controller
             $infos_visite->date="";
             $infos_visite->motif="";
         }
+        $liste_marque = Marque::all();
+        $liste_modele = Modele::all();
+        return view('vehicules.editer_vehicule',compact('titre','id_visite','infos_vehicule','infos_visite','tableau_annee','liste_marque','liste_modele'));
+    }
 
-        return view('vehicules.editer_vehicule',compact('titre','id_visite','infos_vehicule','infos_visite'));
+    public function get_model($nom_model){
+        $listes = Modele::where('marque_parente','=',$nom_model)->get();
+        $liste_modele = [];
+        foreach ($listes as $item_model){
+            $liste_modele[] = $item_model['modele'];
+        }
+        return $liste_modele;
     }
 //=================devis_rapide
     public function devis_rapide(){
