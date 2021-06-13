@@ -52,7 +52,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('details_flux_argent_du_mois/{mois_a_afficher}', [FrontController::class, 'details_flux_argent_du_mois'])->name('details_flux_argent_du_mois');
 
 
-    Route::get('/dashboard', [FrontController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard', [FrontController::class, 'verification_licence'])->name('dashboard');
+    Route::get('/licence-verifier', [FrontController::class, 'dashboard'])->name('licence_ok');
     Route::get('visites_en_approche', [FrontController::class, 'visites_en_approche'])->name('visites_en_approche');
     Route::get('classement_frequence_clients', [FrontController::class, 'classement_frequence_clients'])->name('classement_frequence_clients');
     Route::get('fete_danniverssaire', [FrontController::class, 'fete_danniverssaire'])->name('fete_danniverssaire');

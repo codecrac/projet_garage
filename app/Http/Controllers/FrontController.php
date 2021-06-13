@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BilanComptable;
 use App\Models\Client;
 use App\Models\FluxArgent;
+use App\Models\Licence;
 use App\Models\Marque;
 use App\Models\Modele;
 use App\Models\User;
@@ -16,6 +17,7 @@ use Illuminate\Http\Request;
 //PDF
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Illuminate\Support\Facades\Http;
 use Matrix\Exception;
 use NumberFormatter;
 
@@ -25,7 +27,55 @@ class FrontController extends Controller
         return view('welcome');
     }
 
+    public function verification_licence(){
+        //recup le code licence
+
+        $la_licence = Licence::first();
+           $code_licence = $la_licence->code_licence;
+        if($code_licence == null ){
+            die("formulaire de renseignement de licence");
+        }else{
+            $nom_de_domaine = "https://ladde.000webhostapp.com/garage-licence/verification.php";
+            $parametres = [
+                "code_licence" => "$code_licence"
+            ];
+            $req = Http::get($nom_de_domaine,$parametres);
+            $reponse = json_decode( $req->body() );
+
+            if($reponse->licence_valide){
+                return redirect()->route("licence_ok");
+            }else{
+                dd($reponse->message);
+            }
+
+        }
+
+
+    }
+
     public function dashboard(){
+
+
+#===============================LICENCE#===============================
+
+        $la_licence = Licence::first();
+        $code_licence = $la_licence->code_licence;
+        if($code_licence == null ){
+            return redirect()->route("dashboard");
+        }else{
+            $nom_de_domaine = "https://ladde.000webhostapp.com/garage-licence/verification.php";
+            $parametres = [
+                "tableau_de_bord_utilise_licence" => "$code_licence"
+            ];
+            $req = Http::get($nom_de_domaine,$parametres);
+            $reponse = json_decode( $req->body() );
+
+            if(!$reponse->licence_valide){
+                return redirect()->route("dashboard");
+            }
+
+        }
+
 #===============================MARQUE ET MODELE#===============================
 
         $tableau_marque = [ 'Bmw','Daewoo','Ford','Holden','Honda','Hyundai',
