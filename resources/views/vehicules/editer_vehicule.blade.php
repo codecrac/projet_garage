@@ -24,44 +24,44 @@
             <tbody>
             <tr id="la_ligne_etat_des_lieux">
                 <td>
-                    <input class="form-control" autocomplete="off" list="liste_objet" type="text" name="objet[]" required/>
+                    <input required class="form-control" autocomplete="off" list="liste_objet" type="text" name="objet[]" />
                 </td>
                 <td>
-                    <input class="form-control quantite" autocomplete="off"  type="number" name="quantite[]" required />
+                    <input required class="form-control quantite" autocomplete="off"  type="number" name="quantite[]"  />
                 </td>
                 <td>
-                    <select class="form-control etat" type="number" name="etat[]" required>
+                    <select required class="form-control etat" type="number" name="etat[]" >
                         <option value="Present">Present</option>
                         <option value="Absent">Absent</option>
                     </select>
                 </td>
                 <td>
-                    <input  class="form-control observation" autocomplete="off"  type="text" name="observation[]" required/>
+                    <input required  class="form-control observation" autocomplete="off"  type="text" name="observation[]" />
                 </td>
             </tr>
             <tr id="la_ligne_fiche">
                 <td>
-                    <input class="form-control" autocomplete="off" list="liste_objet_fiche" type="text" name="objet[]" required/>
+                    <input required class="form-control" autocomplete="off" list="liste_objet_fiche" type="text" name="objet[]" />
                 </td>
                 <td>
-                    <input class="form-control quantite" autocomplete="off"  type="number" name="quantite[]" required />
+                    <input required class="form-control quantite" autocomplete="off"  type="number" name="quantite[]"  />
                 </td>
                 <td>
-                    <input class="form-control" autocomplete="off" list="liste_etat_fiche" type="text" name="etat[]" required/>
+                    <input required class="form-control" autocomplete="off" list="liste_etat_fiche" type="text" name="etat[]" />
                 </td>
             </tr>
             <tr id="la_ligne_facture">
                 <td>
-                    <input class="form-control" type="text" name="objet[]"/>
+                    <input required class="form-control" type="text" name="objet[]"/>
                 </td>
                 <td>
-                    <input class="form-control prix_unitaire " type="text" name="prix_unitaire[]"  required/>
+                    <input required class="form-control prix_unitaire " type="text" name="prix_unitaire[]"  />
                 </td>
                 <td>
-                    <input class="form-control quantite_pour_facture" type="text" name="quantite_pour_facture[]"  required/>
+                    <input required class="form-control quantite_pour_facture" type="text" name="quantite_pour_facture[]"  />
                 </td>
                 <td>
-                    <input readonly class="form-control prix_total" type="text" name="prix_total[]" required/>
+                    <input required readonly class="form-control prix_total" type="text" name="prix_total[]" />
                 </td>
             </tr>
             </tbody>
@@ -148,7 +148,7 @@
             <div class="col-md-2">
                 <h3>Etat des travaux</h3>
                 <form method="post" action="{{route('changer_etat_visite',[$infos_vehicule->id,$infos_visite->id])}}">
-                    <select class="form-select shadow-none p-0 border-0 form-control-line" name="etat_travaux">
+                    <select required class="form-select shadow-none p-0 border-0 form-control-line" name="etat_travaux">
                         <option>{{$infos_visite->etat}}</option>
                         <option value="Non Debuter">Non Debuter</option>
                         <option value="En cours">En cours</option>
@@ -181,7 +181,7 @@
                                             @endforeach
                                         </datalist>
 
-                                        <input type="text" list="liste_marque" id="marque_choisie" name="marque" autocomplete="off" class="form-control p-0 border-0" value="{{$infos_vehicule->id_marque}}" required>
+                                        <input required type="text" list="liste_marque" id="marque_choisie" name="marque" autocomplete="off" class="form-control p-0 border-0" value="{{$infos_vehicule->id_marque}}" >
                                     </div>
                                 </div>
                                 <div class="form-group mb-4">
@@ -193,15 +193,15 @@
 
                                         <div class="col-md-12 border-bottom p-0">
                                             <span id="chargement_en_cours" style="color: red"> Chargement des suggestions de model</span>
-                                            <input type="text" list="liste_modele" id="input_modele" value="{{$infos_vehicule->id_model}}" autocomplete="off"  placeholder="Entrer un Modele" name="model" class="form-control p-0 border-0" required>
+                                            <input required type="text" list="liste_modele" id="input_modele" value="{{$infos_vehicule->id_model}}" autocomplete="off"  placeholder="Entrer un Modele" name="model" class="form-control p-0 border-0" >
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group mb-4">
                                     <label for="example-email" class="col-md-12 p-0">Annee</label>
                                     <div class="col-md-12 border-bottom p-0">
-{{--                                        <input type="text" placeholder="2018" max="17" min="17" value="{{$infos_vehicule->annee}}" class="form-control p-0 border-0" name="annee">--}}
-                                        <select class="form-select shadow-none p-0 border-0 form-control-line" name="annee">
+{{--                                        <input required type="text" placeholder="2018" max="17" min="17" value="{{$infos_vehicule->annee}}" class="form-control p-0 border-0" name="annee">--}}
+                                        <select required class="form-select shadow-none p-0 border-0 form-control-line" name="annee">
                                             <option value="{{$infos_vehicule->annee}}"> {{$infos_vehicule->annee}} </option>
                                             @foreach( $tableau_annee as $item_annee )
                                                 <option value="{{$item_annee}}"> {{$item_annee}} </option>
@@ -212,8 +212,8 @@
                                 <div class="form-group mb-4">
                                     <label for="example-email" class="col-md-12 p-0">Energie</label>
                                     <div class="col-md-12 border-bottom p-0">
-{{--                                        <input type="text" placeholder="Gasoil" max="17" min="17"value="{{$infos_vehicule->energie}}" class="form-control p-0 border-0" name="energie">--}}
-                                        <select class="form-select shadow-none p-0 border-0 form-control-line" name="energie">
+{{--                                        <input required type="text" placeholder="Gasoil" max="17" min="17"value="{{$infos_vehicule->energie}}" class="form-control p-0 border-0" name="energie">--}}
+                                        <select required class="form-select shadow-none p-0 border-0 form-control-line" name="energie">
                                             <option valuw="{{$infos_vehicule->energie}}"> {{$infos_vehicule->energie}} </option>
                                             <option value="essence"> Essence </option>
                                             <option value="diesel"> Diesel </option>
@@ -224,13 +224,13 @@
                                 <div class="form-group mb-4">
                                     <label class="col-md-12 p-0">Immatriculation</label>
                                     <div class="col-md-12 border-bottom p-0">
-                                        <input type="text" placeholder="00JKHDJKD" class="form-control p-0 border-0" name="immatriculation" value="{{$infos_vehicule->immatriculation}}">
+                                        <input required type="text" placeholder="00JKHDJKD" class="form-control p-0 border-0" name="immatriculation" value="{{$infos_vehicule->immatriculation}}">
                                     </div>
                                 </div>
                                 <div class="form-group mb-4">
                                     <label class="col-md-12 p-0">No de Chassis</label>
                                     <div class="col-md-12 border-bottom p-0">
-                                        <input type="text" placeholder="12354578909090905" max="17" min="17" class="form-control p-0 border-0" name="numero_chassis" value="{{$infos_vehicule->numero_chassis}}">
+                                        <input required type="text" placeholder="12354578909090905" max="17" min="17" class="form-control p-0 border-0" name="numero_chassis" value="{{$infos_vehicule->numero_chassis}}">
                                     </div>
                                 </div>
 
@@ -241,7 +241,7 @@
                                     </div>
                                 </div>
                                 {{--<div class="row py-2">
-                                    <input class="form-control btn btn-info" type="submit" name="telecharger_en_pdf" value="Telecharger en pdf">
+                                    <input required class="form-control btn btn-info" type="submit" name="telecharger_en_pdf" value="Telecharger en pdf">
                                 </div>--}}
                             </form>
                     </div>
@@ -272,16 +272,16 @@
 
                                 <div class="row">
                                     <label>Immatriculation</label><br/>
-                                    <input class="form-control" type="text" name="immatriculation" value="{{$infos_vehicule->immatriculation}}" required/>
+                                    <input required class="form-control" type="text" name="immatriculation" value="{{$infos_vehicule->immatriculation}}" />
                                     <br/>
 
                                         <div class="form-group mb-4">
                                             <label class="col-md-12 p-0">Date visite</label>
                                             <div class="col-md-12 border-bottom p-0">
                                                 @if($infos_visite!=null)
-                                                <input type="date" placeholder="123 456 7890" required class="form-control p-0 border-0" name="date_visite_technique" value="{{$infos_visite->date}}">
+                                                <input required type="date" placeholder="123 456 7890"  class="form-control p-0 border-0" name="date_visite_technique" value="{{$infos_visite->date}}">
                                                 @else
-                                                    <input type="date" placeholder="123 456 7890" required class="form-control p-0 border-0" name="date_visite_technique">
+                                                    <input required type="date" placeholder="123 456 7890"  class="form-control p-0 border-0" name="date_visite_technique">
                                                 @endif
                                             </div>
                                         </div>
@@ -300,19 +300,19 @@
                                             @if($infos_visite->etat_des_lieux ==null)
                                                <tr>
                                             <td>
-                                                <input class="form-control" autocomplete="off" list="liste_objet" type="text" name="objet[]" required/>
+                                                <input required class="form-control" autocomplete="off" list="liste_objet" type="text" name="objet[]" />
                                             </td>
                                             <td>
-                                                <input class="form-control quantite" autocomplete="off"  type="number" name="quantite[]" required />
+                                                <input required class="form-control quantite" autocomplete="off"  type="number" name="quantite[]"  />
                                             </td>
                                             <td>
-                                                <select class="form-control etat" type="number" name="etat[]" required>
+                                                <select required class="form-control etat" type="number" name="etat[]" >
                                                     <option value="Present">Present</option>
                                                     <option value="Absent">Absent</option>
                                                 </select>
                                             </td>
                                             <td>
-                                                <input  class="form-control observation" autocomplete="off"  type="text" name="observation[]" />
+                                                <input required  class="form-control observation" autocomplete="off"  type="text" name="observation[]" />
                                             </td>
                                         </tr>
                                             @else
@@ -323,20 +323,20 @@
                                                 @endphp
                                                   <tr>
                                                     <td>
-                                                        <input class="form-control" autocomplete="off" list="liste_objet" value="{{$item_objet->objet}}" type="text" name="objet[]"/>
+                                                        <input required class="form-control" autocomplete="off" list="liste_objet" value="{{$item_objet->objet}}" type="text" name="objet[]"/>
                                                     </td>
                                                     <td>
-                                                        <input class="form-control quantite" autocomplete="off"  type="number" value="{{$item_objet->quantite}}" name="quantite[]" required />
+                                                        <input required class="form-control quantite" autocomplete="off"  type="number" value="{{$item_objet->quantite}}" name="quantite[]"  />
                                                     </td>
                                                     <td>
-                                                        <select class="form-control etat" type="number" name="etat[]" required>
+                                                        <select required class="form-control etat" type="number" name="etat[]" >
                                                             <option value="Present">{{$item_objet->etat}}</option>
                                                             <option value="Present">Present</option>
                                                             <option value="Absent">Absent</option>
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <input  class="form-control observation" autocomplete="off"  type="text" name="observation[]" value="{{$item_objet->observation}}" required/>
+                                                        <input required  class="form-control observation" autocomplete="off"  type="text" name="observation[]" value="{{$item_objet->observation}}" />
                                                     </td>
                                                 </tr>
                                                 @php
@@ -358,7 +358,7 @@
                                             <label>Kilometrage</label>
                                         </div>
                                         <div class="col-md-3">
-                                            <input type="text" placeholder="123" class="form-control p-3" name="kilometrage" value="{{$infos_visite->kilometrage}}">
+                                            <input required type="text" placeholder="123" class="form-control p-3" name="kilometrage" value="{{$infos_visite->kilometrage}}">
                                         </div>
                                     </div>
                                     <br/>
@@ -367,7 +367,7 @@
                                             <label>Niveau de Carburant</label>
                                         </div>
                                         <div class="col-md-3">
-                                            <input type="text" placeholder="123" class="form-control p-3" name="niveau_carburant" value="{{$infos_visite->niveau_carburant}}">
+                                            <input required type="text" placeholder="123" class="form-control p-3" name="niveau_carburant" value="{{$infos_visite->niveau_carburant}}">
                                         </div>
                                     </div>
 
@@ -377,14 +377,14 @@
                                 <div class="form-group mb-4">
                                     <label class="col-md-12 p-0">Motif garage</label>
                                     <div class="col-md-12 border-bottom p-0">
-                                        <textarea rows="5" class="form-control p-0 border" name="motif_garage">{{$infos_visite->motif}}</textarea>
+                                        <textarea required rows="5" class="form-control p-0 border" name="motif_garage">{{$infos_visite->motif}}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group mb-4">
                                     <label class="col-md-12 p-0">Date prochaine viste technique</label>
                                     <div class="col-md-12 border-bottom p-0">
-                                        <input type="date" placeholder="123 456 7890" class="form-control p-0 border-0" name="date_prochaine_visite_technique" value="{{$infos_visite->date_prochaine_visite}}">
+                                        <input required type="date" placeholder="123 456 7890" class="form-control p-0 border-0" name="date_prochaine_visite_technique" value="{{$infos_visite->date_prochaine_visite}}">
                                     </div>
                                 </div>
 
@@ -423,13 +423,13 @@
 
                         <div class="row">
                             <label>Immatriculation</label><br/>
-                            <input class="form-control" type="text" name="immatriculation" placeholder="YU 908 848" required/>
+                            <input required class="form-control" type="text" name="immatriculation" placeholder="YU 908 848" />
                             <br/>
                             <label>Date</label><br/>
                             @if($infos_visite!=null)
-                            <input class="form-control" type="date" name="date_facture" value="{{$infos_visite->date}}" readonly/>
+                            <input required class="form-control" type="date" name="date_facture" value="{{$infos_visite->date}}" readonly/>
                             @else
-                                <input type="date" placeholder="123 456 7890" required class="form-control p-0 border-0" name="date_visite_technique">
+                                <input required type="date" placeholder="123 456 7890"  class="form-control p-0 border-0" name="date_visite_technique">
                             @endif
                         </div>
 
@@ -447,13 +447,13 @@
                                     @if($infos_visite->travaux ==null)
                                         <tr>
                                         <td>
-                                            <input class="form-control" autocomplete="off" list="liste_objet_fiche" type="text" name="objet[]" required/>
+                                            <input required class="form-control" autocomplete="off" list="liste_objet_fiche" type="text" name="objet[]" />
                                         </td>
                                         <td>
-                                            <input class="form-control quantite" autocomplete="off"  type="number" name="quantite[]" required />
+                                            <input required class="form-control quantite" autocomplete="off"  type="number" name="quantite[]"  />
                                         </td>
                                         <td>
-                                            <input class="form-control" autocomplete="off" list="liste_etat_fiche" type="text" name="etat[]" required/>
+                                            <input required class="form-control" autocomplete="off" list="liste_etat_fiche" type="text" name="etat[]" />
                                         </td>
                                     </tr>
                                     @else
@@ -464,13 +464,13 @@
                                         @endphp
                                         <tr>
                                             <td>
-                                                <input class="form-control" autocomplete="off" list="liste_objet" value="{{$item_objet->objet}}" type="text" name="objet[]" required/>
+                                                <input required class="form-control" autocomplete="off" list="liste_objet" value="{{$item_objet->objet}}" type="text" name="objet[]" />
                                             </td>
                                             <td>
-                                                <input class="form-control quantite" autocomplete="off"  type="number" value="{{$item_objet->quantite}}" name="quantite[]" required />
+                                                <input required class="form-control quantite" autocomplete="off"  type="number" value="{{$item_objet->quantite}}" name="quantite[]"  />
                                             </td>
                                             <td>
-                                                <select class="form-control etat" type="number" name="etat[]" required>
+                                                <select required class="form-control etat" type="number" name="etat[]" >
                                                     <option value="Present">{{$item_objet->etat}}</option>
                                                     <option value="Present">Changé</option>
                                                     <option value="Absent">Retiré</option>
@@ -525,13 +525,13 @@
                         <form class="form-horizontal form-material" method="post" action="{{route('modifier_facture',[$infos_vehicule->id,$infos_visite->id])}}">
                         <div class="row">
                                 <label>Immatriculation</label><br/>
-                                <input class="form-control" type="text" name="immatriculation" placeholder="YU 908 848" readonly/>
+                                <input required class="form-control" type="text" name="immatriculation" placeholder="YU 908 848" readonly/>
                                 <br/>
                                 <label>Date</label><br/>
                                 @if($infos_visite!=null)
-                                    <input class="form-control" type="date" name="date_visite_technique" value="{{$infos_visite->date}}" required/>
+                                    <input required class="form-control" type="date" name="date_visite_technique" value="{{$infos_visite->date}}" />
                                 @else
-                                    <input type="date" placeholder="123 456 7890" required class="form-control p-0 border-0" name="date_visite_technique">
+                                    <input required type="date" placeholder="123 456 7890"  class="form-control p-0 border-0" name="date_visite_technique">
                                 @endif
                             </div>
                             <div class="py-4">
@@ -547,16 +547,16 @@
                                     @if($infos_visite->factures==null)
                                         <tr>
                                             <td>
-                                                <input class="form-control" type="text" autocomplete="off" name="objet[]" required/>
+                                                <input required class="form-control" type="text" autocomplete="off" name="objet[]" />
                                             </td>
                                             <td>
-                                                <input class="form-control prix_unitaire" type="number" name="prix_unitaire[]" id="prix_unitaire_0" onkeyup="calcul_prix_total_ditem('0')"  required/>
+                                                <input required class="form-control prix_unitaire" type="number" name="prix_unitaire[]" id="prix_unitaire_0" onkeyup="calcul_prix_total_ditem('0')"  />
                                             </td>
                                             <td>
-                                                <input class="form-control quantite_pour_facture" type="number" name="quantite_pour_facture[]" id="quantite_pour_facture_0" onkeyup="calcul_prix_total_ditem('0')" required />
+                                                <input required class="form-control quantite_pour_facture" type="number" name="quantite_pour_facture[]" id="quantite_pour_facture_0" onkeyup="calcul_prix_total_ditem('0')"  />
                                             </td>
                                             <td>
-                                                <input readonly class="form-control prix_total" type="number" name="prix_total[]" id="prix_total_0" onkeyup="calcul_prix_total_ditem('0')"  required/>
+                                                <input required readonly class="form-control prix_total" type="number" name="prix_total[]" id="prix_total_0" onkeyup="calcul_prix_total_ditem('0')"  />
                                             </td>
                                         </tr>
                                     @else
@@ -567,16 +567,16 @@
                                         @endphp
                                         <tr>
                                         <td>
-                                            <input class="form-control" type="text" name="objet[]" value="{{$item_facture->objet}}"/>
+                                            <input required class="form-control" type="text" name="objet[]" value="{{$item_facture->objet}}"/>
                                         </td>
                                         <td>
-                                            <input value="{{$item_facture->prix_unitaire}}" class="form-control prix_unitaire" type="number" name="prix_unitaire[]" id="prix_unitaire_{{$i}}" onkeyup="calcul_prix_total_ditem({{$i}})"  onchange="calcul_prix_total_ditem({{$i}})" required/>
+                                            <input required value="{{$item_facture->prix_unitaire}}" class="form-control prix_unitaire" type="number" name="prix_unitaire[]" id="prix_unitaire_{{$i}}" onkeyup="calcul_prix_total_ditem({{$i}})"  onchange="calcul_prix_total_ditem({{$i}})" />
                                         </td>
                                         <td>
-                                            <input value="{{$item_facture->quantite_pour_facture}}" class="form-control quantite_pour_facture" type="number" name="quantite_pour_facture[]" id="quantite_pour_facture_{{$i}}" onkeyup="calcul_prix_total_ditem({{$i}})"  onchange="calcul_prix_total_ditem({{$i}})"required />
+                                            <input required value="{{$item_facture->quantite_pour_facture}}" class="form-control quantite_pour_facture" type="number" name="quantite_pour_facture[]" id="quantite_pour_facture_{{$i}}" onkeyup="calcul_prix_total_ditem({{$i}})"  onchange="calcul_prix_total_ditem({{$i}})" />
                                         </td>
                                         <td>
-                                            <input value="{{$item_facture->prix_total}}" readonly class="form-control prix_total" type="number" name="prix_total[]" id="prix_total_{{$i}}" onkeyup="calcul_prix_total_ditem({{$i}})"  onchange="calcul_prix_total_ditem({{$i}})" required/>
+                                            <input required value="{{$item_facture->prix_total}}" readonly class="form-control prix_total" type="number" name="prix_total[]" id="prix_total_{{$i}}" onkeyup="calcul_prix_total_ditem({{$i}})"  onchange="calcul_prix_total_ditem({{$i}})" />
                                         </td>
                                     </tr>
                                         @php
@@ -595,19 +595,19 @@
                                     <div class="col-md-8">
                                         <div>
                                             <label>Total</label>
-                                            <input readonly class="form-control" type="number" name="total_travaux" value="{{$infos_visite->total_travaux}}" id="grand_total_input" />
+                                            <input required readonly class="form-control" type="number" name="total_travaux" value="{{$infos_visite->total_travaux}}" id="grand_total_input" />
                                             <br/>
                                             <label>Main doeuvre</label>
-                                            <input class="form-control" type="number" name="main_doeuvre" id="main_doeuvre" value="{{$infos_visite->main_doeuvre}}" onkeyup="ajout_de_main_doeuvre()" onchange="ajout_de_main_doeuvre()" />
+                                            <input required class="form-control" type="number" name="main_doeuvre" id="main_doeuvre" value="{{$infos_visite->main_doeuvre}}" onkeyup="ajout_de_main_doeuvre()" onchange="ajout_de_main_doeuvre()" />
                                             <br/>
                                             <label>Grand total</label>
-                                            <input readonly class="form-control" type="number" required id="reste_a_payer" value="{{$infos_visite->main_doeuvre + $infos_visite->total_travaux}}" />
+                                            <input required readonly class="form-control" type="number"  id="reste_a_payer" value="{{$infos_visite->main_doeuvre + $infos_visite->total_travaux}}" />
                                             <br/>
                                         </div>
 
                                         <div class="row py-2">
                                             @csrf
-                                            <input class="form-control btn btn-success" type="submit" name="enregistrer_facture" value="Enregistrer la facture">
+                                            <input required class="form-control btn btn-success" type="submit" name="enregistrer_facture" value="Enregistrer la facture">
                                         </div>
                                     </div>
                                 </div>

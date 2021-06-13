@@ -53,7 +53,7 @@
                                 </datalist>
 
                                 <div class="col-md-12 border-bottom p-0">
-                                    <span id="chargement_en_cours" style="color: red"> Chargement des suggestions de model</span>
+{{--                                    <span id="chargement_en_cours" style="color: red"> Chargement des suggestions de model</span>--}}
                                     <input type="text" list="liste_modele" id="input_modele" autocomplete="off"  placeholder="Entrer un Modele" name="model" class="form-control p-0 border-0" required>
                                 </div>
                             </div>
@@ -111,7 +111,7 @@
                                 <div class="form-group mb-4">
                                     <label class="col-md-12 p-0">Date prochaine viste </label>
                                     <div class="col-md-12 border-bottom p-0">
-                                        <input type="date" placeholder="123 456 7890" class="form-control p-0 border-0"
+                                        <input required type="date" placeholder="123 456 7890" class="form-control p-0 border-0"
                                                name="date_prochaine_visite_technique">
                                     </div>
                                 </div>
@@ -138,7 +138,7 @@
             var _this = $(this);
             var value = _this.val();
             if(value!=''){
-                $("#chargement_en_cours").css('display','block');
+                // $("#chargement_en_cours").css('display','block');
                 $.ajax({
                     url: "/get-model/"+value,
                     success: function(liste_modele) {
@@ -148,7 +148,7 @@
                         }
                     }
                 });
-                $("#chargement_en_cours").css('display','none');
+                // $("#chargement_en_cours").css('display','none');
             }
         });
 
@@ -157,7 +157,7 @@
             var value = _this.val();
 
             if(value!='') {
-                $("#chargement_en_cours").css('display','block');
+                // $("#chargement_en_cours").css('display','block');
                 $.ajax({
                     url: "/get-model/" + value,
                     success: function (liste_modele) {
@@ -167,7 +167,7 @@
                         }
                     }
                 });
-                $("#chargement_en_cours").css('display','none');
+                // $("#chargement_en_cours").css('display','none');
             }
         });
     </script>

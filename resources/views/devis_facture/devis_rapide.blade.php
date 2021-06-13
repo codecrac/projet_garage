@@ -75,23 +75,23 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>Nom Complet Client(e)</label><br/>
-                                    <input class="form-control" type="text" name="nom_client" placeholder="YU 908 848" />
+                                    <input required class="form-control" type="text" name="nom_client" placeholder="YU 908 848" />
                                 </div>
                                 <div class="col-md-6">
                                     <label>Marque Voiture</label><br/>
-                                    <input class="form-control" type="text" name="marque" />
+                                    <input required class="form-control" type="text" name="marque" />
                                 </div>
                                 <div class="col-md-6">
                                     <label>Model Voiture</label><br/>
-                                    <input class="form-control" type="text" name="model"/>
+                                    <input required class="form-control" type="text" name="model"/>
                                 </div>
                                 <div class="col-md-6">
                                     <label>Immatriculation</label><br/>
-                                    <input class="form-control" type="text" name="immatriculation" placeholder="YU 908 848" />
+                                    <input required class="form-control" type="text" name="immatriculation" placeholder="YU 908 848" />
                                 </div>
                                 <div class="col-md-6">
                                     <label>Date</label><br/>
-                                    <input class="form-control" type="date" name="date_facture" value="<?=date('Y-m-d')?>" />
+                                    <input required class="form-control" type="date" name="date_facture" value="<?=date('Y-m-d')?>" />
                                 </div>
                             </div>
                             <div class="py-4">
@@ -129,13 +129,13 @@
                                     <div class="col-md-8">
                                         <div>
                                             <label>Total</label>
-                                            <input readonly class="form-control" type="number" name="grand_total" id="grand_total_input" />
+                                            <input required readonly class="form-control" type="number" name="grand_total" id="grand_total_input" />
                                             <br/>
                                             <label>Main doeuvre</label>
-                                            <input class="form-control" type="number" name="main_doeuvre" id="main_doeuvre" onkeyup="ajout_de_main_doeuvre()" />
+                                            <input required class="form-control" type="number" name="main_doeuvre" id="main_doeuvre" onkeyup="ajout_de_main_doeuvre()" />
                                             <br/>
                                             <label>Grand total</label>
-                                            <input readonly class="form-control" type="number" required name="total_a_payer" id="reste_a_payer" />
+                                            <input required readonly class="form-control" type="number" required name="total_a_payer" id="reste_a_payer" />
                                             <br/>
                                         </div>
 

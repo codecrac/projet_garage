@@ -16,19 +16,19 @@
                             <div class="form-group mb-4">
                                 <label class="col-md-12 p-0">Nom complet  <i class="text-danger">*</i> </label>
                                 <div class="col-md-12 border-bottom p-0">
-                                    <input type="text" placeholder="Johnathan Doe"
+                                    <input required type="text" placeholder="Johnathan Doe"
                                            class="form-control p-0 border-0" name="nom" required value="{{$le_client->nom}}"> </div>
                             </div>
                             <div class="form-group mb-4">
                                 <label class="col-md-12 p-0">Telephone  <i class="text-danger">*</i></label>
                                 <div class="col-md-12 border-bottom p-0">
-                                    <input type="text" placeholder="123 456 7890" name="telephone" class="form-control p-0 border-0" value="{{$le_client->telephone}}">
+                                    <input required type="text" placeholder="123 456 7890" name="telephone" class="form-control p-0 border-0" value="{{$le_client->telephone}}">
                                 </div>
                             </div>
                             <div class="form-group mb-4">
                                 <label for="example-email" class="col-md-12 p-0">Email </label>
                                 <div class="col-md-12 border-bottom p-0">
-                                    <input type="email" placeholder="johnathan@admin.com" name="email"
+                                    <input required type="email" placeholder="johnathan@admin.com" name="email"
                                            class="form-control p-0 border-0" name="example-email"
                                            id="example-email" value="{{$le_client->email}}">
                                 </div>
@@ -36,7 +36,7 @@
                             <div class="form-group mb-4">
                                 <label class="col-sm-12">Lieu d'habitation <i class="text-danger">*</i></label>
                                 <div class="col-sm-12 border-bottom">
-                                    <select class="form-select shadow-none p-0 border-0 form-control-line" id="localisation_client" name="localisation"
+                                    <select required class="form-select shadow-none p-0 border-0 form-control-line" id="localisation_client" name="localisation"
                                             onchange="changer_localisation_client()">
                                         <option value="{{$le_client->localisation}}"> {{$le_client->localisation}}</option>
                                         <option value="interieur">Interieur du pays</option>
@@ -47,7 +47,7 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-12 border-bottom p-0">
-                                    <input type="text" placeholder="Preciser le lieu a l'interieur" class="form-control p-0 border-0" id="localisation_interieur" name="localisation_interieur">
+                                    <input required type="text" placeholder="Preciser le lieu a l'interieur" class="form-control p-0 border-0" id="localisation_interieur" name="localisation_interieur">
                                 </div>
 
                                 <div class="row m-4">
@@ -57,9 +57,6 @@
                                             <button type="button" class="btn btn-danger text-white" data-bs-toggle="modal" data-bs-target="#modalSuppression">
                                                 Supprimer
                                             </button>
-                                        @else
-                                            <i class="text-danger"> Vous n'etes pas autoriser a effectuer des suppression </i>
-                                        @endif
                                             <!-- Modal -->
                                             <div class="modal fade" id="modalSuppression" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
@@ -84,6 +81,10 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                        @else
+                                            <i class="text-danger"> Vous n'etes pas autoriser a effectuer des suppression </i>
+                                        @endif
 
 
                                         </div>

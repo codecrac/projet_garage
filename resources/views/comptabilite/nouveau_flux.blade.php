@@ -79,7 +79,7 @@
                     </div>
                     <div class="form-group mb-4">
                         <label class="col-md-12 p-0">Vehicule concerné</label>
-                        <select class="form-select shadow-none p-0 border-0 form-control-line searchable-select" name="id_vehicule_concerner">
+                        <select required class="form-select shadow-none p-0 border-0 form-control-line searchable-select" name="id_vehicule_concerner">
                             <option value>Aucun</option>
                             @foreach($les_vehiclues as $le_vehiclue)
                                 <option value="{{$le_vehiclue->id}}">{{$le_vehiclue->immatriculation}}</option>

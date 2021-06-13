@@ -56,20 +56,20 @@
                 <ul id="sidebarnav">
                     <li class="sidebar-item pt-2">
                         <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('dashboard')}}"aria-expanded="false">
-                            <i class="far fa-home" aria-hidden="true"></i>
+                            <i class="fa fa-globe" aria-hidden="true"></i>
                             <span class="hide-menu">Tableau de bord</span>
                         </a>
                     </li>
                     <li class="sidebar-item pt-2">
                         <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('nouveau_client')}}"aria-expanded="false">
-                            <i class="far fa-clock" aria-hidden="true"></i>
+                            <i class="fa fa-globe" aria-hidden="true"></i>
                             <span class="hide-menu">Nouveau client</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('liste_client')}}"
                            aria-expanded="false">
-                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <i class="fa fa-globe" aria-hidden="true"></i>
                             <span class="hide-menu">Liste des clients</span>
                         </a>
                     </li>
@@ -78,7 +78,7 @@
                     <li class="sidebar-item">
                         <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('nouveau_vehicule')}}"
                            aria-expanded="false">
-                            <i class="fa fa-font" aria-hidden="true"></i>
+                            <i class="fa fa-globe" aria-hidden="true"></i>
                             <span class="hide-menu">Nouveau véhicule</span>
                         </a>
                     </li>
@@ -86,7 +86,7 @@
                     <li class="sidebar-item">
                         <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('liste_vehicules_garage')}}"
                            aria-expanded="false">
-                            <i class="fa fa-font" aria-hidden="true"></i>
+                            <i class="fa fa-globe" aria-hidden="true"></i>
                             <span class="hide-menu">Voitures dans le garage</span>
                         </a>
                     </li>
@@ -95,7 +95,7 @@
                     <li class="sidebar-item">
                         <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('devis_rapide')}}"
                            aria-expanded="false">
-                            <i class="fa fa-table" aria-hidden="true"></i>
+                            <i class="fa fa-globe" aria-hidden="true"></i>
                             <span class="hide-menu">Devis rapide</span>
                         </a>
                     </li>
@@ -104,7 +104,7 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('liste_facture')}}"
                                aria-expanded="false">
-                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <i class="fa fa-globe" aria-hidden="true"></i>
                                 <span class="hide-menu">Reglement de Factures</span>
                             </a>
                         </li>
@@ -134,14 +134,14 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('register')}}"
                                aria-expanded="false">
-                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <i class="fa fa-globe" aria-hidden="true"></i>
                                 <span class="hide-menu">Nouvel Utilisateur</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('gestion_utilisateur')}}"
                                aria-expanded="false">
-                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <i class="fa fa-globe" aria-hidden="true"></i>
                                 <span class="hide-menu">Liste utilisateur</span>
                             </a>
                         </li>
